@@ -1,0 +1,7 @@
+:root {
+  --hero-text-color: #1e40af; /* Darker blue for light mode */
+}
+
+.dark {
+  --hero-text-color: #3b82f6; /* Brighter blue for dark mode */
+}
