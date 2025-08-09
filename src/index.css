@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Performance optimizations for mobile */
+@media (max-width: 768px) {
+  /* Optimize scrolling performance */
+  body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* Reduce blur effects on mobile */
+  .backdrop-blur-md {
+    backdrop-filter: blur(2px) !important;
+  }
+
+  .backdrop-blur-xl {
+    backdrop-filter: blur(4px) !important;
+  }
+
+  /* Optimize animations for mobile */
+  .animate-pulse {
+    animation-duration: 2s !important;
+  }
+
+  .animate-spin {
+    animation-duration: 4s !important;
+  }
+
+  .animate-bounce {
+    animation-duration: 2s !important;
+  }
+}
+
+/* Optimize hover states for touch devices */
+@media (hover: none) {
+  .hover\:scale-105:hover,
+  .hover\:scale-110:hover,
+  .hover\:scale-125:hover {
+    transform: none !important;
+  }
+
+  .group:hover .group-hover\:scale-110,
+  .group:hover .group-hover\:rotate-12,
+  .group:hover .group-hover\:translate-x-1 {
+    transform: none !important;
+  }
+}
+
+/* Cursor trail effect styles */
+.cursor-trail {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: rgba(147, 51, 234, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform, opacity;
+}
+
+/* Hide custom cursor on touch devices */
+@media (hover: none) {
+  .custom-cursor,
+  .cursor-trail {
+    display: none !important;
+  }
+  
+  body {
+    cursor: auto !important;
+  }
+}
+
+/* Performance optimizations */
+* {
+  will-change: auto;
+}
+
+/* Only add will-change to actively animating elements */
+.animate-pulse,
+.animate-bounce,
+.animate-spin {
+  will-change: transform, opacity;
+}
+
+/* Improve text rendering */
+body {
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimize image loading */
+img {
+  content-visibility: auto;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
