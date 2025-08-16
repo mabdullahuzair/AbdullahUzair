@@ -45,16 +45,70 @@ const StarfieldBackground = () => {
         };
         window.addEventListener("resize", handleResize);
 
-        // Enhanced mouse tracking for more responsive interactivity
-        const handleMouseMove = (event) => {
-          mouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
-          mouseRef.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-          // More responsive camera movement
-          targetRotationRef.current.x = mouseRef.current.y * 0.3;
-          targetRotationRef.current.y = mouseRef.current.x * 0.3;
+        // 3D Drag controls for interactive background
+        const handleMouseDown = (event) => {
+          isDraggingRef.current = true;
+          dragStartRef.current.x = event.clientX;
+          dragStartRef.current.y = event.clientY;
         };
-        window.addEventListener("mousemove", handleMouseMove, { passive: true });
+
+        const handleMouseMove = (event) => {
+          if (isDraggingRef.current) {
+            const deltaX = event.clientX - dragStartRef.current.x;
+            const deltaY = event.clientY - dragStartRef.current.y;
+
+            // Update camera rotation based on drag movement
+            cameraRotationRef.current.y += deltaX * 0.005;
+            cameraRotationRef.current.x += deltaY * 0.005;
+
+            // Constrain vertical rotation
+            cameraRotationRef.current.x = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, cameraRotationRef.current.x));
+
+            dragStartRef.current.x = event.clientX;
+            dragStartRef.current.y = event.clientY;
+          }
+        };
+
+        const handleMouseUp = () => {
+          isDraggingRef.current = false;
+        };
+
+        // Add drag event listeners
+        window.addEventListener("mousedown", handleMouseDown);
+        window.addEventListener("mousemove", handleMouseMove);
+        window.addEventListener("mouseup", handleMouseUp);
+
+        // Touch support for mobile
+        const handleTouchStart = (event) => {
+          if (event.touches.length === 1) {
+            isDraggingRef.current = true;
+            dragStartRef.current.x = event.touches[0].clientX;
+            dragStartRef.current.y = event.touches[0].clientY;
+          }
+        };
+
+        const handleTouchMove = (event) => {
+          if (isDraggingRef.current && event.touches.length === 1) {
+            const deltaX = event.touches[0].clientX - dragStartRef.current.x;
+            const deltaY = event.touches[0].clientY - dragStartRef.current.y;
+
+            cameraRotationRef.current.y += deltaX * 0.005;
+            cameraRotationRef.current.x += deltaY * 0.005;
+
+            cameraRotationRef.current.x = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, cameraRotationRef.current.x));
+
+            dragStartRef.current.x = event.touches[0].clientX;
+            dragStartRef.current.y = event.touches[0].clientY;
+          }
+        };
+
+        const handleTouchEnd = () => {
+          isDraggingRef.current = false;
+        };
+
+        window.addEventListener("touchstart", handleTouchStart, { passive: true });
+        window.addEventListener("touchmove", handleTouchMove, { passive: true });
+        window.addEventListener("touchend", handleTouchEnd, { passive: true });
 
         // Controls setup - exact match
         let controls = new OrbitControls(camera, renderer.domElement);
