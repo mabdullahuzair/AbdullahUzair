@@ -47,7 +47,7 @@ const StarfieldBackground = ({ darkMode = true }) => {
         };
         window.addEventListener("resize", handleResize);
 
-        // 3D Drag controls for interactive background
+        // Enhanced 3D controls with cursor interaction
         const handleMouseDown = (event) => {
           isDraggingRef.current = true;
           dragStartRef.current.x = event.clientX;
@@ -55,6 +55,15 @@ const StarfieldBackground = ({ darkMode = true }) => {
         };
 
         const handleMouseMove = (event) => {
+          // Update mouse position for cursor distortion
+          mouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
+          mouseRef.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+          // Update shader uniforms for cursor distortion
+          if (particleSystemRef.current && particleSystemRef.current.material.uniforms.mouse) {
+            particleSystemRef.current.material.uniforms.mouse.value.set(mouseRef.current.x, mouseRef.current.y);
+          }
+
           if (isDraggingRef.current) {
             const deltaX = event.clientX - dragStartRef.current.x;
             const deltaY = event.clientY - dragStartRef.current.y;
