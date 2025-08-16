@@ -244,7 +244,12 @@ const StarfieldBackground = () => {
         // Store cleanup function
         cleanupRef.current = () => {
           window.removeEventListener("resize", handleResize);
+          window.removeEventListener("mousedown", handleMouseDown);
           window.removeEventListener("mousemove", handleMouseMove);
+          window.removeEventListener("mouseup", handleMouseUp);
+          window.removeEventListener("touchstart", handleTouchStart);
+          window.removeEventListener("touchmove", handleTouchMove);
+          window.removeEventListener("touchend", handleTouchEnd);
           renderer.setAnimationLoop(null);
 
           if (g) g.dispose();
