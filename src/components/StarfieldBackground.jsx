@@ -42,13 +42,14 @@ const StarfieldBackground = () => {
         };
         window.addEventListener("resize", handleResize);
 
-        // Mouse tracking for interactivity
+        // Enhanced mouse tracking for more responsive interactivity
         const handleMouseMove = (event) => {
           mouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
           mouseRef.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-          targetRotationRef.current.x = mouseRef.current.y * 0.1;
-          targetRotationRef.current.y = mouseRef.current.x * 0.1;
+          // More responsive camera movement
+          targetRotationRef.current.x = mouseRef.current.y * 0.3;
+          targetRotationRef.current.y = mouseRef.current.x * 0.3;
         };
         window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
