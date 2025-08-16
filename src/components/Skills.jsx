@@ -363,19 +363,6 @@ const Skills = () => {
       ref={sectionRef}
       className="py-10 sm:py-16 lg:py-20 relative overflow-hidden"
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div 
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: isMobile ? '30px 30px' : '50px 50px'
-          }}
-        />
-      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
