@@ -3,6 +3,8 @@ import { useEffect, useRef } from 'react';
 const StarfieldBackground = () => {
   const mountRef = useRef(null);
   const cleanupRef = useRef(null);
+  const mouseRef = useRef({ x: 0, y: 0 });
+  const targetRotationRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     let mounted = true;
