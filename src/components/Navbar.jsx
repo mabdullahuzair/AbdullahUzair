@@ -64,7 +64,21 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-2">
-              {/* Desktop nav items */}
+              {navItems.map((item) => {
+                const IconComponent = item.icon;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(`#${item.id}`)}
+                    className="group relative px-4 py-2 rounded-xl transition-all duration-300 transform hover:scale-105 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800 font-medium"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <IconComponent size={18} className="transform group-hover:scale-110 transition-transform duration-300" />
+                      <span className="text-sm">{item.label}</span>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
 
             {/* Tablet Navigation */}
