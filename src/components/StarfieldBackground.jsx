@@ -252,7 +252,7 @@ const StarfieldBackground = ({ darkMode = true }) => {
         // Clock for animation - exact match
         let clock = new THREE.Clock();
 
-        // Animation loop with 3D drag controls
+        // Animation loop with enhanced interactions
         renderer.setAnimationLoop(() => {
           if (!mounted) {
             renderer.setAnimationLoop(null);
@@ -265,14 +265,15 @@ const StarfieldBackground = ({ darkMode = true }) => {
 
           // Apply 3D camera rotation based on drag
           const radius = 25;
-          camera.position.x = Math.sin(cameraRotationRef.current.y) * Math.cos(cameraRotationRef.current.x) * radius;
+          camera.position.x = Math.sin(cameraRotationRef.current.y + scrollOffsetRef.current) * Math.cos(cameraRotationRef.current.x) * radius;
           camera.position.y = Math.sin(cameraRotationRef.current.x) * radius;
-          camera.position.z = Math.cos(cameraRotationRef.current.y) * Math.cos(cameraRotationRef.current.x) * radius;
+          camera.position.z = Math.cos(cameraRotationRef.current.y + scrollOffsetRef.current) * Math.cos(cameraRotationRef.current.x) * radius;
           camera.lookAt(0, 0, 0);
 
-          // Subtle automatic rotation when not dragging
+          // Enhanced rotation with scroll influence
           if (!isDraggingRef.current) {
-            p.rotation.y = t * 0.02;
+            p.rotation.y = t * 0.02 + scrollOffsetRef.current;
+            p.rotation.x = Math.sin(t * 0.01) * 0.1;
           }
 
           renderer.render(scene, camera);
