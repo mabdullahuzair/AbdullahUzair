@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 const StarfieldBackground = () => {
-  const canvasRef = useRef(null);
+  const mountRef = useRef(null);
   const sceneRef = useRef(null);
   const rendererRef = useRef(null);
   const animationRef = useRef(null);
@@ -15,14 +15,13 @@ const StarfieldBackground = () => {
         const THREE = await import('three');
         const { OrbitControls } = await import('three/examples/jsm/controls/OrbitControls');
 
-        if (!mounted) return;
+        if (!mounted || !mountRef.current) return;
 
-        const canvas = canvasRef.current;
-        if (!canvas) return;
+        console.log('Initializing Three.js starfield...');
 
         // Scene setup
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x160016); // Exact color from provided code
+        scene.background = new THREE.Color(0x160016); // Dark purple background
         sceneRef.current = scene;
 
         // Camera setup
@@ -30,17 +29,13 @@ const StarfieldBackground = () => {
         camera.position.set(0, 4, 21);
 
         // Renderer setup
-        const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false });
+        const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: false });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         rendererRef.current = renderer;
-
-        // Ensure canvas fills the screen
-        canvas.style.position = 'absolute';
-        canvas.style.top = '0';
-        canvas.style.left = '0';
-        canvas.style.width = '100%';
-        canvas.style.height = '100%';
+        
+        // Append renderer to mount point
+        mountRef.current.appendChild(renderer.domElement);
 
         // Controls setup
         const controls = new OrbitControls(camera, renderer.domElement);
@@ -82,12 +77,14 @@ const StarfieldBackground = () => {
           pushShift();
         }
 
+        console.log(`Created ${pts.length} particles`);
+
         // Create geometry
         const geometry = new THREE.BufferGeometry().setFromPoints(pts);
         geometry.setAttribute("sizes", new THREE.Float32BufferAttribute(sizes, 1));
         geometry.setAttribute("shift", new THREE.Float32BufferAttribute(shift, 4));
 
-        // Create material with custom shaders matching site colors
+        // Create material with custom shaders
         const material = new THREE.PointsMaterial({
           size: 0.125,
           transparent: true,
@@ -142,6 +139,8 @@ const StarfieldBackground = () => {
         points.rotation.z = 0.2;
         scene.add(points);
 
+        console.log('Starfield added to scene');
+
         // Clock for animation
         const clock = new THREE.Clock();
 
@@ -167,6 +166,7 @@ const StarfieldBackground = () => {
         };
 
         animate();
+        console.log('Animation started');
 
         // Cleanup function
         return () => {
@@ -178,6 +178,9 @@ const StarfieldBackground = () => {
           material.dispose();
           renderer.dispose();
           controls.dispose();
+          if (mountRef.current && renderer.domElement) {
+            mountRef.current.removeChild(renderer.domElement);
+          }
         };
 
       } catch (error) {
@@ -196,20 +199,18 @@ const StarfieldBackground = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none">
-      <canvas
-        ref={canvasRef}
-        className="w-full h-full"
-        style={{
-          display: 'block',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%'
-        }}
-      />
-    </div>
+    <div 
+      ref={mountRef}
+      className="fixed inset-0 z-0 pointer-events-none"
+      style={{ 
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 0
+      }}
+    />
   );
 };
 
