@@ -213,7 +213,7 @@ const StarfieldBackground = () => {
         // Clock for animation - exact match
         let clock = new THREE.Clock();
 
-        // Animation loop - exact match using setAnimationLoop
+        // Animation loop with 3D drag controls
         renderer.setAnimationLoop(() => {
           if (!mounted) {
             renderer.setAnimationLoop(null);
@@ -224,16 +224,17 @@ const StarfieldBackground = () => {
           let t = clock.getElapsedTime() * 0.5;
           gu.time.value = t * Math.PI;
 
-          // Enhanced interactive camera movement based on mouse
-          camera.position.x += (targetRotationRef.current.y * 8 - camera.position.x) * 0.05;
-          camera.position.y += (4 + targetRotationRef.current.x * 5 - camera.position.y) * 0.05;
-          camera.position.z += (21 + targetRotationRef.current.x * 2 - camera.position.z) * 0.02;
+          // Apply 3D camera rotation based on drag
+          const radius = 25;
+          camera.position.x = Math.sin(cameraRotationRef.current.y) * Math.cos(cameraRotationRef.current.x) * radius;
+          camera.position.y = Math.sin(cameraRotationRef.current.x) * radius;
+          camera.position.z = Math.cos(cameraRotationRef.current.y) * Math.cos(cameraRotationRef.current.x) * radius;
           camera.lookAt(0, 0, 0);
 
-          // Enhanced rotation with stronger mouse influence
-          p.rotation.y = t * 0.05 + targetRotationRef.current.y * 0.2;
-          p.rotation.x = targetRotationRef.current.x * 0.15;
-          p.rotation.z = 0.2 + targetRotationRef.current.x * 0.1;
+          // Subtle automatic rotation when not dragging
+          if (!isDraggingRef.current) {
+            p.rotation.y = t * 0.02;
+          }
 
           renderer.render(scene, camera);
         });
