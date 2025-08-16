@@ -26,9 +26,9 @@ const StarfieldBackground = ({ darkMode = true }) => {
         // Clear any previous content
         mountRef.current.innerHTML = '';
 
-        // Scene setup - exact match
+        // Scene setup with theme support
         let scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x160016);
+        scene.background = new THREE.Color(darkMode ? 0x160016 : 0xf5f5f5); // Grayish for light theme
         
         // Camera setup - exact match
         let camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
