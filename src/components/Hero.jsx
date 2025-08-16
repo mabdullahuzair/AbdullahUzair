@@ -4,47 +4,11 @@ import { Button } from '@/components/ui/button.jsx';
 import TerminalBot from './TerminalBot.jsx';
 
 const Hero = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
-
-    // Disable mouse tracking on mobile for better performance
-    if (window.innerWidth <= 768 || 'ontouchstart' in window) {
-      return;
-    }
-
-    // Optimized mouse tracking with throttling for desktop only
-    let animationFrame;
-    const handleMouseMove = (e) => {
-      if (animationFrame) return;
-      animationFrame = requestAnimationFrame(() => {
-        const rect = document.getElementById('hero')?.getBoundingClientRect();
-        if (rect) {
-          setMousePosition({
-            x: ((e.clientX - rect.left) / rect.width - 0.5) * 1.5, // Reduced intensity
-            y: ((e.clientY - rect.top) / rect.height - 0.5) * 1.5
-          });
-        }
-        animationFrame = null;
-      });
-    };
-
-    const heroSection = document.getElementById('hero');
-    if (heroSection) {
-      heroSection.addEventListener('mousemove', handleMouseMove, { passive: true });
-    }
-
-    return () => {
-      if (heroSection) {
-        heroSection.removeEventListener('mousemove', handleMouseMove);
-      }
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame);
-      }
-    };
   }, []);
 
   const scrollToSection = (sectionId) => {
