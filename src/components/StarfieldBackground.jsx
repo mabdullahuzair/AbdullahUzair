@@ -124,13 +124,9 @@ const StarfieldBackground = () => {
               varying vec3 vColor;
               ${shader.fragmentShader}
             `.replace(
-              `#include <clipping_planes_fragment>`,
-              `#include <clipping_planes_fragment>
-                float d = length(gl_PointCoord.xy - 0.5);
-              `
-            ).replace(
               `vec4 diffuseColor = vec4( diffuse, opacity );`,
-              `vec4 diffuseColor = vec4( vColor, smoothstep(0.5, 0.1, d) );`
+              `float d = length(gl_PointCoord.xy - 0.5);
+               vec4 diffuseColor = vec4( vColor, smoothstep(0.5, 0.1, d) );`
             );
           }
         });
