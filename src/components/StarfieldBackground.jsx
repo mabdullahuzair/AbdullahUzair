@@ -279,16 +279,17 @@ const StarfieldBackground = () => {
   }, []);
 
   return (
-    <div 
+    <div
       ref={mountRef}
-      className="fixed inset-0 z-0 pointer-events-none"
-      style={{ 
+      className="fixed inset-0 z-0"
+      style={{
         position: 'fixed',
         top: 0,
         left: 0,
         width: '100%',
         height: '100%',
-        zIndex: 0
+        zIndex: 0,
+        cursor: isDraggingRef.current ? 'grabbing' : 'grab'
       }}
     />
   );
