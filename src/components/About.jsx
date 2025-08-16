@@ -178,7 +178,7 @@ const About = () => {
   };
 
   return (
-    <section id="about" ref={sectionRef} className="py-20 bg-gradient-to-br from-white via-purple-50 to-blue-50 dark:from-gray-900 dark:via-purple-900/50 dark:to-gray-800 relative overflow-hidden">
+    <section id="about" ref={sectionRef} className="py-20 relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(12)].map((_, i) => (
