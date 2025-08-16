@@ -2,90 +2,92 @@ import { useEffect, useRef } from 'react';
 
 const StarfieldBackground = () => {
   const mountRef = useRef(null);
-  const sceneRef = useRef(null);
-  const rendererRef = useRef(null);
-  const animationRef = useRef(null);
+  const cleanupRef = useRef(null);
 
   useEffect(() => {
     let mounted = true;
 
     const initThreeJS = async () => {
       try {
-        // Import Three.js dynamically
         const THREE = await import('three');
         const { OrbitControls } = await import('three/examples/jsm/controls/OrbitControls');
 
         if (!mounted || !mountRef.current) return;
 
-        console.log('Initializing Three.js starfield...');
+        console.log('Initializing starfield...');
 
-        // Scene setup
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x160016); // Dark purple background
-        sceneRef.current = scene;
+        // Clear any previous content
+        mountRef.current.innerHTML = '';
 
-        // Camera setup
-        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
-        camera.position.set(0, 4, 21);
-
-        // Renderer setup
-        const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: false });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        rendererRef.current = renderer;
+        // Scene setup - exact match
+        let scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x160016);
         
-        // Append renderer to mount point
+        // Camera setup - exact match
+        let camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
+        camera.position.set(0, 4, 21);
+        
+        // Renderer setup - exact match
+        let renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
         mountRef.current.appendChild(renderer.domElement);
+        
+        // Resize handler - exact match
+        const handleResize = () => {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        };
+        window.addEventListener("resize", handleResize);
 
-        // Controls setup
-        const controls = new OrbitControls(camera, renderer.domElement);
+        // Controls setup - exact match
+        let controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.enablePan = false;
 
-        // Uniform for time
-        const gu = {
-          time: { value: 0 }
+        // Time uniform - exact match
+        let gu = {
+          time: {value: 0}
         };
 
-        // Create particle data
-        const sizes = [];
-        const shift = [];
-        const pushShift = () => {
+        // Particle data arrays - exact match
+        let sizes = [];
+        let shift = [];
+        let pushShift = () => {
           shift.push(
-            Math.random() * Math.PI,
-            Math.random() * Math.PI * 2,
+            Math.random() * Math.PI, 
+            Math.random() * Math.PI * 2, 
             (Math.random() * 0.9 + 0.1) * Math.PI * 0.1,
             Math.random() * 0.9 + 0.1
           );
         };
 
-        // Create points for inner sphere (exact match)
-        const pts = new Array(50000).fill().map(() => {
+        // Create points - exact match
+        let pts = new Array(50000).fill().map(p => {
           sizes.push(Math.random() * 1.5 + 0.5);
           pushShift();
           return new THREE.Vector3().randomDirection().multiplyScalar(Math.random() * 0.5 + 9.5);
         });
 
-        // Create points for outer galaxy (exact match)
-        for (let i = 0; i < 100000; i++) {
-          const r = 10;
-          const R = 40;
-          const rand = Math.pow(Math.random(), 1.5);
-          const radius = Math.sqrt(R * R * rand + (1 - rand) * r * r);
-          pts.push(new THREE.Vector3().setFromCylindricalCoords(radius, Math.random() * 2 * Math.PI, (Math.random() - 0.5) * 2));
+        // Add galaxy points - exact match
+        for(let i = 0; i < 100000; i++){
+          let r = 10, R = 40;
+          let rand = Math.pow(Math.random(), 1.5);
+          let radius = Math.sqrt(R * R * rand + (1 - rand) * r * r);
+          pts.push(new THREE.Vector3().setFromCylindricalCoords(radius, Math.random() * 2 * Math.PI, (Math.random() - 0.5) * 2 ));
           sizes.push(Math.random() * 1.5 + 0.5);
           pushShift();
         }
 
         console.log(`Created ${pts.length} particles`);
 
-        // Create geometry
-        const geometry = new THREE.BufferGeometry().setFromPoints(pts);
-        geometry.setAttribute("sizes", new THREE.Float32BufferAttribute(sizes, 1));
-        geometry.setAttribute("shift", new THREE.Float32BufferAttribute(shift, 4));
+        // Create geometry - exact match
+        let g = new THREE.BufferGeometry().setFromPoints(pts);
+        g.setAttribute("sizes", new THREE.Float32BufferAttribute(sizes, 1));
+        g.setAttribute("shift", new THREE.Float32BufferAttribute(shift, 4));
 
-        // Create material with custom shaders
-        const material = new THREE.PointsMaterial({
+        // Create material with exact shader modifications
+        let m = new THREE.PointsMaterial({
           size: 0.125,
           transparent: true,
           depthTest: false,
@@ -133,67 +135,60 @@ const StarfieldBackground = () => {
           }
         });
 
-        // Create points mesh
-        const points = new THREE.Points(geometry, material);
-        points.rotation.order = "ZYX";
-        points.rotation.z = 0.2;
-        scene.add(points);
+        // Create points mesh - exact match
+        let p = new THREE.Points(g, m);
+        p.rotation.order = "ZYX";
+        p.rotation.z = 0.2;
+        scene.add(p);
 
-        console.log('Starfield added to scene');
+        console.log('Points added to scene');
 
-        // Clock for animation
-        const clock = new THREE.Clock();
+        // Clock for animation - exact match
+        let clock = new THREE.Clock();
 
-        // Resize handler
-        const handleResize = () => {
-          camera.aspect = window.innerWidth / window.innerHeight;
-          camera.updateProjectionMatrix();
-          renderer.setSize(window.innerWidth, window.innerHeight);
-        };
-
-        window.addEventListener('resize', handleResize);
-
-        // Animation loop
-        const animate = () => {
-          if (!mounted) return;
-
-          animationRef.current = requestAnimationFrame(animate);
+        // Animation loop - exact match using setAnimationLoop
+        renderer.setAnimationLoop(() => {
+          if (!mounted) {
+            renderer.setAnimationLoop(null);
+            return;
+          }
+          
           controls.update();
-          const t = clock.getElapsedTime() * 0.5;
+          let t = clock.getElapsedTime() * 0.5;
           gu.time.value = t * Math.PI;
-          points.rotation.y = t * 0.05;
+          p.rotation.y = t * 0.05;
           renderer.render(scene, camera);
-        };
+        });
 
-        animate();
         console.log('Animation started');
 
-        // Cleanup function
-        return () => {
-          window.removeEventListener('resize', handleResize);
-          if (animationRef.current) {
-            cancelAnimationFrame(animationRef.current);
+        // Store cleanup function
+        cleanupRef.current = () => {
+          window.removeEventListener("resize", handleResize);
+          renderer.setAnimationLoop(null);
+          
+          if (g) g.dispose();
+          if (m) m.dispose();
+          if (renderer) {
+            renderer.dispose();
+            if (mountRef.current && renderer.domElement && mountRef.current.contains(renderer.domElement)) {
+              mountRef.current.removeChild(renderer.domElement);
+            }
           }
-          geometry.dispose();
-          material.dispose();
-          renderer.dispose();
-          controls.dispose();
-          if (mountRef.current && renderer.domElement) {
-            mountRef.current.removeChild(renderer.domElement);
-          }
+          if (controls) controls.dispose();
         };
 
       } catch (error) {
-        console.error('Failed to load Three.js:', error);
+        console.error('Failed to initialize starfield:', error);
       }
     };
 
-    const cleanup = initThreeJS();
+    initThreeJS();
 
     return () => {
       mounted = false;
-      if (cleanup && typeof cleanup === 'function') {
-        cleanup();
+      if (cleanupRef.current) {
+        cleanupRef.current();
       }
     };
   }, []);
