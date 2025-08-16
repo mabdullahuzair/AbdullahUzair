@@ -57,15 +57,15 @@ const StarfieldBackground = () => {
           );
         };
 
-        // Create points for inner sphere
-        const pts = new Array(30000).fill().map(() => {
+        // Create points for inner sphere (exact match)
+        const pts = new Array(50000).fill().map(() => {
           sizes.push(Math.random() * 1.5 + 0.5);
           pushShift();
           return new THREE.Vector3().randomDirection().multiplyScalar(Math.random() * 0.5 + 9.5);
         });
 
-        // Create points for outer galaxy
-        for (let i = 0; i < 70000; i++) {
+        // Create points for outer galaxy (exact match)
+        for (let i = 0; i < 100000; i++) {
           const r = 10;
           const R = 40;
           const rand = Math.pow(Math.random(), 1.5);
