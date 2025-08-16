@@ -104,11 +104,11 @@ const StarfieldBackground = () => {
 
         // Create material with exact shader modifications
         let m = new THREE.PointsMaterial({
-          size: 0.125,
+          size: 0.05, // Much thinner particles
           transparent: true,
           depthTest: false,
           blending: THREE.AdditiveBlending,
-          opacity: 0.25, // Further reduced opacity for subtlety
+          opacity: 0.08, // Very very low visibility
           onBeforeCompile: shader => {
             shader.uniforms.time = gu.time;
             shader.vertexShader = `
