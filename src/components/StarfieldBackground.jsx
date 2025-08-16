@@ -35,6 +35,13 @@ const StarfieldBackground = () => {
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         rendererRef.current = renderer;
 
+        // Ensure canvas fills the screen
+        canvas.style.position = 'absolute';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+
         // Controls setup
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
