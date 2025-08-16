@@ -179,25 +179,6 @@ const About = () => {
 
   return (
     <section id="about" ref={sectionRef} className="py-20 relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(12)].map((_, i) => (
-          <div
-            key={i}
-            className={`absolute w-3 h-3 rounded-full opacity-20 animate-pulse ${
-              i % 4 === 0 ? 'bg-purple-400' : 
-              i % 4 === 1 ? 'bg-blue-400' : 
-              i % 4 === 2 ? 'bg-pink-400' : 'bg-cyan-400'
-            }`}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`
-            }}
-          />
-        ))}
-      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
