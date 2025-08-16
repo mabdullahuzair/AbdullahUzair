@@ -312,7 +312,7 @@ const Skills = () => {
   };
 
   const getKeyStyle = (keyData) => {
-    if (keyData.empty) return 'w-16 sm:w-20 lg:w-24 h-12 sm:h-14 lg:h-16 invisible';
+    if (keyData.empty) return 'w-8 sm:w-12 lg:w-16 xl:w-20 h-8 sm:h-10 lg:h-12 xl:h-14 invisible';
     
     const isPressed = pressedKeys.has(keyData.key);
     const isSelected = selectedSkill?.name === keyData.skill?.name;
@@ -361,21 +361,8 @@ const Skills = () => {
     <section
       id="skills"
       ref={sectionRef}
-      className="py-10 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-black relative overflow-hidden"
+      className="py-10 sm:py-16 lg:py-20 relative overflow-hidden"
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div 
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: isMobile ? '30px 30px' : '50px 50px'
-          }}
-        />
-      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
@@ -471,7 +458,7 @@ const Skills = () => {
                 touchAction: 'none'
               }}
             >
-              <div className="relative bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-2xl border border-gray-200 dark:border-gray-700">
+              <div className="relative bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl p-2 sm:p-4 lg:p-6 shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
                 {/* Keyboard Header */}
                 <div className="text-center mb-4 sm:mb-6">
                   <div className="text-gray-500 dark:text-gray-400 font-mono text-xs">SKILLS KEYBOARD v3.0</div>
@@ -487,9 +474,9 @@ const Skills = () => {
                 </div>
 
                 {/* Keyboard Layout */}
-                <div className="space-y-2 sm:space-y-3">
+                <div className="space-y-1 sm:space-y-2 lg:space-y-3 overflow-x-auto">
                   {keyboardLayout.map((row, rowIndex) => (
-                    <div key={rowIndex} className="flex justify-center space-x-1 sm:space-x-2">
+                    <div key={rowIndex} className="flex justify-center space-x-0.5 sm:space-x-1 lg:space-x-2 min-w-fit">
                       {row.map((keyData, keyIndex) => (
                         <button
                           key={`${rowIndex}-${keyIndex}`}

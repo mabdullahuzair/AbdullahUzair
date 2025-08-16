@@ -63,13 +63,7 @@ const Education = () => {
   ];
 
   return (
-    <section id="education" ref={sectionRef} className="py-20 bg-white dark:bg-gray-900 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-10 right-10 w-40 h-40 bg-purple-200 dark:bg-purple-900 rounded-full opacity-10 animate-pulse" />
-        <div className="absolute bottom-10 left-10 w-32 h-32 bg-blue-200 dark:bg-blue-900 rounded-full opacity-10 animate-bounce" />
-        <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-green-200 dark:bg-green-900 rounded-full opacity-10 animate-pulse" style={{ animationDelay: '1s' }} />
-      </div>
+    <section id="education" ref={sectionRef} className="py-20 relative overflow-hidden">
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-12">

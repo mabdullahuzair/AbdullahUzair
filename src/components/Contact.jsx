@@ -97,31 +97,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" ref={sectionRef} className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-purple-900 dark:to-gray-800 relative overflow-hidden">
-      {/* Interactive Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Floating Elements */}
-        {[...Array(12)].map((_, i) => (
-          <div
-            key={i}
-            className={`absolute w-2 h-2 rounded-full opacity-20 animate-pulse ${
-              i % 4 === 0 ? 'bg-purple-400' :
-              i % 4 === 1 ? 'bg-blue-400' :
-              i % 4 === 2 ? 'bg-indigo-400' : 'bg-cyan-400'
-            }`}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`
-            }}
-          />
-        ))}
-        
-        {/* Gradient Orbs */}
-        <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full opacity-10 animate-pulse blur-xl" />
-        <div className="absolute bottom-20 right-20 w-48 h-48 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full opacity-10 animate-bounce blur-xl" />
-      </div>
+    <section id="contact" ref={sectionRef} className="py-20 relative overflow-hidden">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Dynamic Header */}
