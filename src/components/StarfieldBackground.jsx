@@ -102,9 +102,7 @@ const StarfieldBackground = () => {
               `#include <color_vertex>
                 float d = length(abs(position) / vec3(40., 10., 40));
                 d = clamp(d, 0., 1.);
-                // Use site's color scheme: purple to blue to cyan
-                vColor = mix(vec3(147., 51., 234.), vec3(59., 130., 246.), d) / 255.; // purple-600 to blue-500
-                vColor = mix(vColor, vec3(6., 182., 212.) / 255., d * 0.5); // blend with cyan-500
+                vColor = mix(vec3(227., 155., 0.), vec3(100., 50., 255.), d) / 255.;
               `
             ).replace(
               `#include <begin_vertex>`,
