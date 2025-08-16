@@ -161,11 +161,20 @@ const StarfieldBackground = () => {
             renderer.setAnimationLoop(null);
             return;
           }
-          
+
           controls.update();
           let t = clock.getElapsedTime() * 0.5;
           gu.time.value = t * Math.PI;
-          p.rotation.y = t * 0.05;
+
+          // Interactive camera movement based on mouse
+          camera.position.x += (targetRotationRef.current.y * 5 - camera.position.x) * 0.02;
+          camera.position.y += (4 + targetRotationRef.current.x * 3 - camera.position.y) * 0.02;
+          camera.lookAt(0, 0, 0);
+
+          // Original rotation plus subtle mouse influence
+          p.rotation.y = t * 0.05 + targetRotationRef.current.y * 0.1;
+          p.rotation.x = targetRotationRef.current.x * 0.05;
+
           renderer.render(scene, camera);
         });
 
