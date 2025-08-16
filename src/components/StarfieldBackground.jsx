@@ -121,6 +121,12 @@ const StarfieldBackground = ({ darkMode = true }) => {
         window.addEventListener("touchmove", handleTouchMove, { passive: true });
         window.addEventListener("touchend", handleTouchEnd, { passive: true });
 
+        // Scroll-based rotation
+        const handleScroll = () => {
+          scrollOffsetRef.current = window.scrollY * 0.001;
+        };
+        window.addEventListener("scroll", handleScroll, { passive: true });
+
         // Controls setup - exact match
         let controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
