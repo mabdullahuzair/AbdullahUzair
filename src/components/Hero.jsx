@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, ArrowDown, Code, Database, Globe } from 'lucide-react';
+import { Github, Linkedin, Mail, ArrowDown } from 'lucide-react';
 import { Button } from '@/components/ui/button.jsx';
 import TerminalBot from './TerminalBot.jsx';
 
