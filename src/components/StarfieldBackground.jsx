@@ -105,7 +105,7 @@ const StarfieldBackground = () => {
           transparent: true,
           depthTest: false,
           blending: THREE.AdditiveBlending,
-          opacity: 0.4, // Reduced opacity for subtlety
+          opacity: 0.25, // Further reduced opacity for subtlety
           onBeforeCompile: shader => {
             shader.uniforms.time = gu.time;
             shader.vertexShader = `
