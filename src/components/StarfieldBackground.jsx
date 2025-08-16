@@ -22,7 +22,7 @@ const StarfieldBackground = () => {
 
         // Scene setup
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x0f0f23); // Dark purple-blue background
+        scene.background = new THREE.Color(0x160016); // Exact color from provided code
         sceneRef.current = scene;
 
         // Camera setup
@@ -30,7 +30,7 @@ const StarfieldBackground = () => {
         camera.position.set(0, 4, 21);
 
         // Renderer setup
-        const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true });
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         rendererRef.current = renderer;
@@ -39,9 +39,6 @@ const StarfieldBackground = () => {
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.enablePan = false;
-        controls.enableZoom = false;
-        controls.autoRotate = true;
-        controls.autoRotateSpeed = 0.1;
 
         // Uniform for time
         const gu = {
