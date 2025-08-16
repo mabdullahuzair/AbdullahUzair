@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-const StarfieldBackground = () => {
+const StarfieldBackground = ({ darkMode = true }) => {
   const mountRef = useRef(null);
   const cleanupRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0 });
@@ -8,6 +8,8 @@ const StarfieldBackground = () => {
   const isDraggingRef = useRef(false);
   const dragStartRef = useRef({ x: 0, y: 0 });
   const cameraRotationRef = useRef({ x: 0, y: 0 });
+  const scrollOffsetRef = useRef(0);
+  const particleSystemRef = useRef(null);
 
   useEffect(() => {
     let mounted = true;
