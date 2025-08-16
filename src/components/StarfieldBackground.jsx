@@ -42,6 +42,16 @@ const StarfieldBackground = () => {
         };
         window.addEventListener("resize", handleResize);
 
+        // Mouse tracking for interactivity
+        const handleMouseMove = (event) => {
+          mouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
+          mouseRef.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+          targetRotationRef.current.x = mouseRef.current.y * 0.1;
+          targetRotationRef.current.y = mouseRef.current.x * 0.1;
+        };
+        window.addEventListener("mousemove", handleMouseMove, { passive: true });
+
         // Controls setup - exact match
         let controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
