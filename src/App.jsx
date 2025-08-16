@@ -144,7 +144,7 @@ function App() {
 
   return (
     <div className="min-h-screen transition-colors duration-300 relative">
-      <StarfieldBackground />
+      <StarfieldBackground darkMode={darkMode} />
       <CursorTrail />
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <main className="relative z-10">
