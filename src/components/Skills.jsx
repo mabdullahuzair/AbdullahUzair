@@ -312,7 +312,7 @@ const Skills = () => {
   };
 
   const getKeyStyle = (keyData) => {
-    if (keyData.empty) return 'w-16 sm:w-20 lg:w-24 h-12 sm:h-14 lg:h-16 invisible';
+    if (keyData.empty) return 'w-8 sm:w-12 lg:w-16 xl:w-20 h-8 sm:h-10 lg:h-12 xl:h-14 invisible';
     
     const isPressed = pressedKeys.has(keyData.key);
     const isSelected = selectedSkill?.name === keyData.skill?.name;
