@@ -158,17 +158,22 @@ const StarfieldBackground = ({ darkMode = true }) => {
         g.setAttribute("sizes", new THREE.Float32BufferAttribute(sizes, 1));
         g.setAttribute("shift", new THREE.Float32BufferAttribute(shift, 4));
 
-        // Create material with exact shader modifications
+        // Create material with theme support and cursor distortion
         let m = new THREE.PointsMaterial({
-          size: 0.05, // Much thinner particles
+          size: 0.08, // Slightly thicker particles
           transparent: true,
           depthTest: false,
           blending: THREE.AdditiveBlending,
-          opacity: 0.08, // Very very low visibility
+          opacity: darkMode ? 0.12 : 0.25, // Higher visibility for light theme
           onBeforeCompile: shader => {
             shader.uniforms.time = gu.time;
+            shader.uniforms.mouse = { value: new THREE.Vector2(0, 0) };
+            shader.uniforms.isDarkMode = { value: darkMode };
+
             shader.vertexShader = `
               uniform float time;
+              uniform vec2 mouse;
+              uniform bool isDarkMode;
               attribute float sizes;
               attribute vec4 shift;
               varying vec3 vColor;
@@ -181,7 +186,13 @@ const StarfieldBackground = ({ darkMode = true }) => {
               `#include <color_vertex>
                 float d = length(abs(position) / vec3(40., 10., 40));
                 d = clamp(d, 0., 1.);
-                vColor = mix(vec3(227., 155., 0.), vec3(100., 50., 255.), d) / 255.;
+
+                // Theme-based colors
+                if (isDarkMode) {
+                  vColor = mix(vec3(227., 155., 0.), vec3(100., 50., 255.), d) / 255.;
+                } else {
+                  vColor = mix(vec3(60., 60., 60.), vec3(20., 20., 50.), d) / 255.; // Dark particles for light theme
+                }
               `
             ).replace(
               `#include <begin_vertex>`,
@@ -189,7 +200,15 @@ const StarfieldBackground = ({ darkMode = true }) => {
                 float t = time;
                 float moveT = mod(shift.x + shift.z * t, PI2);
                 float moveS = mod(shift.y + shift.z * t, PI2);
+
+                // Cursor distortion effect
+                vec2 mousePos = mouse * 100.0;
+                float distToMouse = distance(position.xy, mousePos);
+                float distortionStrength = 1.0 / (distToMouse * 0.1 + 1.0);
+                vec2 distortionDir = normalize(position.xy - mousePos) * distortionStrength * 5.0;
+
                 transformed += vec3(cos(moveS) * sin(moveT), cos(moveT), sin(moveS) * sin(moveT)) * shift.w;
+                transformed.xy += distortionDir;
               `
             );
 
@@ -199,10 +218,13 @@ const StarfieldBackground = ({ darkMode = true }) => {
             `.replace(
               `vec4 diffuseColor = vec4( diffuse, opacity );`,
               `float d = length(gl_PointCoord.xy - 0.5);
-               vec4 diffuseColor = vec4( vColor, smoothstep(0.5, 0.1, d) * 0.15 );`
+               vec4 diffuseColor = vec4( vColor, smoothstep(0.5, 0.1, d) * 0.3 );`
             );
           }
         });
+
+        // Store reference for cursor interaction
+        particleSystemRef.current = { material: m };
 
         // Create points mesh - exact match
         let p = new THREE.Points(g, m);
