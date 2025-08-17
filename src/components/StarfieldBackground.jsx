@@ -246,7 +246,7 @@ const StarfieldBackground = () => {
         // Clock for animation - exact match
         let clock = new THREE.Clock();
 
-        // Animation loop with 3D drag controls
+        // Animation loop with 3D drag controls and scroll effects
         renderer.setAnimationLoop(() => {
           if (!mounted) {
             renderer.setAnimationLoop(null);
@@ -257,16 +257,23 @@ const StarfieldBackground = () => {
           let t = clock.getElapsedTime() * 0.5;
           gu.time.value = t * Math.PI;
 
-          // Apply 3D camera rotation based on drag
+          // Update mouse uniform for hover effects
+          if (m.onBeforeCompile.shader && m.onBeforeCompile.shader.uniforms.mouse) {
+            m.onBeforeCompile.shader.uniforms.mouse.value.set(mouseRef.current.x, mouseRef.current.y);
+          }
+
+          // Apply 3D camera rotation based on drag + scroll offset
           const radius = 25;
-          camera.position.x = Math.sin(cameraRotationRef.current.y) * Math.cos(cameraRotationRef.current.x) * radius;
+          const scrollRotation = scrollOffsetRef.current;
+          camera.position.x = Math.sin(cameraRotationRef.current.y + scrollRotation) * Math.cos(cameraRotationRef.current.x) * radius;
           camera.position.y = Math.sin(cameraRotationRef.current.x) * radius;
-          camera.position.z = Math.cos(cameraRotationRef.current.y) * Math.cos(cameraRotationRef.current.x) * radius;
+          camera.position.z = Math.cos(cameraRotationRef.current.y + scrollRotation) * Math.cos(cameraRotationRef.current.x) * radius;
           camera.lookAt(0, 0, 0);
 
-          // Subtle automatic rotation when not dragging
+          // Subtle automatic rotation when not dragging + scroll influence
           if (!isDraggingRef.current) {
-            p.rotation.y = t * 0.02;
+            p.rotation.y = t * 0.02 + scrollRotation * 0.5;
+            p.rotation.x = scrollRotation * 0.2;
           }
 
           renderer.render(scene, camera);
