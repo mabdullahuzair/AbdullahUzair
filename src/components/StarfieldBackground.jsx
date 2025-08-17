@@ -222,32 +222,14 @@ const StarfieldBackground = () => {
                 float moveS = mod(shift.y + shift.z * t, PI2);
                 transformed += vec3(cos(moveS) * sin(moveT), cos(moveT), sin(moveS) * sin(moveT)) * shift.w;
 
-                // Enhanced mouse hover distortion effect
-                vec2 mousePos = mouse * 25.0;
+                // Simple cursor hover distortion effect
+                vec2 mousePos = mouse * 20.0;
                 float mouseDistance = length(position.xy - mousePos);
-
-                // Create stronger distortion zones
-                float innerRadius = 3.0;
-                float outerRadius = 8.0;
-
-                // Strong repulsion effect in inner radius
-                float innerInfluence = smoothstep(innerRadius, 0.0, mouseDistance);
-                // Gentle attraction effect in outer radius
-                float outerInfluence = smoothstep(outerRadius, innerRadius, mouseDistance) * 0.3;
-
+                float mouseInfluence = smoothstep(4.0, 0.0, mouseDistance);
                 vec2 mouseDirection = normalize(position.xy - mousePos);
 
-                // Apply repulsion (particles move away from cursor)
-                transformed.xy += mouseDirection * innerInfluence * 4.0;
-                // Apply subtle attraction (particles slightly move toward cursor at distance)
-                transformed.xy -= mouseDirection * outerInfluence * 1.0;
-
-                // Add some noise to the distortion for more organic feel
-                float noise = sin(position.x * 0.1 + t) * cos(position.y * 0.1 + t) * 0.5;
-                transformed.xy += mouseDirection * innerInfluence * noise;
-
-                // Store distortion for fragment shader
-                vDistortion = innerInfluence + outerInfluence * 0.5;
+                // Particles move away from cursor position
+                transformed.xy += mouseDirection * mouseInfluence * 3.0;
               `
             );
 
