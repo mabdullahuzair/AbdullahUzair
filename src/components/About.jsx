@@ -259,32 +259,6 @@ const About = () => {
           </div>
         </div>
 
-        {/* Call to Action */}
-        <div className={`text-center mt-16 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-3xl p-8 text-white">
-            <h3 className="text-2xl font-bold mb-4 flex items-center justify-center">
-              <TrendingUp className="mr-3" size={28} />
-              Ready to Build Something Amazing Together?
-            </h3>
-            <p className="text-lg mb-6 opacity-90">
-              I'm always excited to work on new projects and collaborate with amazing people
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button 
-                onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-white text-purple-600 px-8 py-3 rounded-2xl font-bold hover:shadow-lg transform hover:scale-105 transition-all duration-300"
-              >
-                View My Work
-              </button>
-              <button 
-                onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                className="border-2 border-white text-white px-8 py-3 rounded-2xl font-bold hover:bg-white hover:text-purple-600 transform hover:scale-105 transition-all duration-300"
-              >
-                Get In Touch
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
