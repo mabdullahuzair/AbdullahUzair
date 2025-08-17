@@ -197,6 +197,13 @@ const StarfieldBackground = () => {
                 float moveT = mod(shift.x + shift.z * t, PI2);
                 float moveS = mod(shift.y + shift.z * t, PI2);
                 transformed += vec3(cos(moveS) * sin(moveT), cos(moveT), sin(moveS) * sin(moveT)) * shift.w;
+
+                // Mouse hover distortion effect
+                vec2 mousePos = mouse * 20.0;
+                float mouseDistance = length(position.xy - mousePos);
+                float mouseInfluence = smoothstep(5.0, 0.0, mouseDistance);
+                vec2 mouseDirection = normalize(position.xy - mousePos);
+                transformed.xy += mouseDirection * mouseInfluence * 2.0;
               `
             );
 
