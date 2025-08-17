@@ -264,8 +264,8 @@ const StarfieldBackground = () => {
           gu.time.value = t * Math.PI;
 
           // Update mouse uniform for hover effects
-          if (m.onBeforeCompile.shader && m.onBeforeCompile.shader.uniforms.mouse) {
-            m.onBeforeCompile.shader.uniforms.mouse.value.set(mouseRef.current.x, mouseRef.current.y);
+          if (shaderRef && shaderRef.uniforms.mouse) {
+            shaderRef.uniforms.mouse.value.set(mouseRef.current.x, mouseRef.current.y);
           }
 
           // Apply 3D camera rotation based on drag + scroll offset
