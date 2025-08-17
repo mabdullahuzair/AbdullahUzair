@@ -169,22 +169,7 @@ const Projects = () => {
   };
 
   return (
-    <section ref={sectionRef} id="projects" className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-purple-900 dark:to-slate-900 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-purple-400 rounded-full opacity-20 animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`
-            }}
-          />
-        ))}
-      </div>
+    <section ref={sectionRef} id="projects" className="py-12 sm:py-16 md:py-20 relative overflow-hidden">
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -253,7 +238,7 @@ const Projects = () => {
                     </div>
 
                     {/* Project Details */}
-                    <div className="md:w-1/2 p-4 sm:p-6 flex flex-col justify-between">
+                    <div className="md:w-1/2 p-3 sm:p-4 md:p-6 flex flex-col justify-between overflow-hidden">
                       <div>
                         <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">
                           {project.title}
@@ -376,4 +361,3 @@ const Projects = () => {
 };
 
 export default Projects;
-

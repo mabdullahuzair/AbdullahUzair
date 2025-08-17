@@ -372,9 +372,9 @@ const Projects3D = () => {
           className={`relative transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
         >
           {/* Main 3D Carousel - Optimized for mobile */}
-          <div className="relative w-full h-[350px] md:h-[600px] mx-auto flex items-center justify-center perspective-1000 touch-pan-x">
+          <div className="relative w-full h-[300px] md:h-[500px] mx-auto flex items-center justify-center perspective-1000 touch-pan-x">
             <div
-              className={`relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 transition-transform duration-300 md:duration-700 ease-out ${isDragging ? 'cursor-grabbing' : 'cursor-grab'} select-none`}
+              className={`relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 transition-transform duration-300 md:duration-700 ease-out ${isDragging ? 'cursor-grabbing' : 'cursor-grab'} select-none`}
               style={{
                 transformStyle: 'preserve-3d',
                 transform: window.innerWidth > 768 ?
@@ -385,7 +385,7 @@ const Projects3D = () => {
             >
               {projects.map((project, index) => {
                 const angle = (index * 45) * (Math.PI / 180); // 45 degrees between cards for 8 projects
-                const radius = window.innerWidth > 768 ? 350 : window.innerWidth > 640 ? 220 : 200; // Better responsive radius
+                const radius = window.innerWidth > 768 ? 280 : window.innerWidth > 640 ? 180 : 160; // Reduced radius for smaller cards
                 const x = isNaN(Math.sin(angle)) ? 0 : Math.sin(angle) * radius;
                 const z = isNaN(Math.cos(angle)) ? 0 : Math.cos(angle) * radius;
                 const isActive = index === currentProject;
@@ -393,7 +393,7 @@ const Projects3D = () => {
                 return (
                   <div
                     key={index}
-                    className={`absolute w-40 h-52 sm:w-48 sm:h-60 md:w-56 md:h-72 transition-all duration-300 md:duration-700 cursor-pointer group ${isActive ? 'z-30' : 'z-10'} ${isDragging ? 'cursor-grabbing' : 'cursor-grab'} select-none`}
+                    className={`absolute w-32 h-40 sm:w-36 sm:h-44 md:w-44 md:h-56 transition-all duration-300 md:duration-700 cursor-pointer group ${isActive ? 'z-30' : 'z-10'} ${isDragging ? 'cursor-grabbing' : 'cursor-grab'} select-none`}
                     style={{
                       transform: `translateX(${(x || 0).toFixed(2)}px) translateZ(${(z || 0).toFixed(2)}px)`,
                       transformStyle: 'preserve-3d'
@@ -419,21 +419,21 @@ const Projects3D = () => {
                         <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-90`} />
                         
                         {/* Content overlay */}
-                        <div className="absolute inset-0 flex items-center justify-center text-white p-4">
+                        <div className="absolute inset-0 flex items-center justify-center text-white p-2 sm:p-3 md:p-4">
                           <div className="text-center">
-                            <div className="w-16 h-16 mx-auto mb-3 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
-                              <Eye size={32} />
+                            <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 mx-auto mb-1 sm:mb-2 md:mb-3 bg-white/20 rounded-xl sm:rounded-2xl flex items-center justify-center backdrop-blur-sm transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
+                              <Eye size={16} className="sm:w-6 sm:h-6 md:w-8 md:h-8" />
                             </div>
-                            <h3 className="text-lg font-bold mb-1">{project.title}</h3>
-                            <p className="text-sm opacity-90">{project.category}</p>
+                            <h3 className="text-xs sm:text-sm md:text-lg font-bold mb-0.5 sm:mb-1 line-clamp-2">{project.title}</h3>
+                            <p className="text-xs sm:text-sm opacity-90 line-clamp-1">{project.category}</p>
                           </div>
                         </div>
 
                         {/* Status Badge */}
-                        <div className="absolute top-3 left-3">
-                          <span className={`px-3 py-1 text-xs font-semibold rounded-full backdrop-blur-sm ${
-                            project.status === 'Completed' 
-                              ? 'bg-green-500/80 text-white' 
+                        <div className="absolute top-1 sm:top-2 md:top-3 left-1 sm:left-2 md:left-3">
+                          <span className={`px-1 sm:px-2 md:px-3 py-0.5 sm:py-1 text-xs font-semibold rounded-full backdrop-blur-sm ${
+                            project.status === 'Completed'
+                              ? 'bg-green-500/80 text-white'
                               : 'bg-yellow-500/80 text-black'
                           }`}>
                             {project.status}
@@ -441,15 +441,15 @@ const Projects3D = () => {
                         </div>
 
                         {/* Rating */}
-                        <div className="absolute top-3 right-3 flex items-center space-x-1 bg-black/30 backdrop-blur-sm rounded-full px-3 py-1">
-                          <Star size={14} className="text-yellow-400 fill-current" />
-                          <span className="text-white text-sm font-semibold">{project.rating}</span>
+                        <div className="absolute top-1 sm:top-2 md:top-3 right-1 sm:right-2 md:right-3 flex items-center space-x-0.5 sm:space-x-1 bg-black/30 backdrop-blur-sm rounded-full px-1 sm:px-2 md:px-3 py-0.5 sm:py-1">
+                          <Star size={10} className="sm:w-3 sm:h-3 md:w-4 md:h-4 text-yellow-400 fill-current" />
+                          <span className="text-white text-xs font-semibold">{project.rating}</span>
                         </div>
 
                         {/* Year */}
-                        <div className="absolute bottom-3 left-3 flex items-center space-x-1 bg-black/30 backdrop-blur-sm rounded-full px-3 py-1">
-                          <Calendar size={14} className="text-white" />
-                          <span className="text-white text-sm font-semibold">{project.year}</span>
+                        <div className="absolute bottom-1 sm:bottom-2 md:bottom-3 left-1 sm:left-2 md:left-3 flex items-center space-x-0.5 sm:space-x-1 bg-black/30 backdrop-blur-sm rounded-full px-1 sm:px-2 md:px-3 py-0.5 sm:py-1">
+                          <Calendar size={10} className="sm:w-3 sm:h-3 md:w-4 md:h-4 text-white" />
+                          <span className="text-white text-xs font-semibold">{project.year}</span>
                         </div>
                       </div>
 
@@ -570,43 +570,43 @@ const Projects3D = () => {
         </div>
 
         {/* Current Project Details Panel */}
-        <div className={`mt-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="max-w-4xl mx-auto bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-gray-200/50 dark:border-gray-700/50">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <div className="flex items-center mb-4">
-                  <h3 className="text-3xl font-bold text-gray-900 dark:text-white mr-3">
+        <div className={`mt-8 sm:mt-12 transition-all duration-700 px-4 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="max-w-4xl mx-auto bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl border border-gray-200/50 dark:border-gray-700/50 overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 items-start">
+              <div className="space-y-3 sm:space-y-4 md:space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-white break-words">
                     {projects[currentProject].title}
                   </h3>
-                  <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm font-medium">
+                  <span className="px-2 sm:px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs sm:text-sm font-medium w-fit">
                     {projects[currentProject].category}
                   </span>
                 </div>
                 
-                <p className="text-gray-700 dark:text-gray-200 mb-6 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-700 dark:text-gray-200 mb-4 sm:mb-6 leading-relaxed break-words">
                   {projects[currentProject].description}
                 </p>
 
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
-                    <Zap className="w-5 h-5 mr-2 text-yellow-500"/>
-                    All Features
+                <div className="mb-4 sm:mb-6">
+                  <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3 flex items-center">
+                    <Zap className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-yellow-500 flex-shrink-0"/>
+                    <span className="break-words">All Features</span>
                   </h4>
-                  <div className="grid grid-cols-1 gap-2">
+                  <div className="grid grid-cols-1 gap-1 sm:gap-2">
                     {projects[currentProject].features.map((feature, idx) => (
-                      <div key={idx} className="flex items-center text-gray-700 dark:text-gray-200">
-                        <span className="w-2 h-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mr-3"></span>
-                        {feature}
+                      <div key={idx} className="flex items-start text-xs sm:text-sm text-gray-700 dark:text-gray-200 break-words">
+                        <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mr-2 sm:mr-3 mt-1.5 sm:mt-2 flex-shrink-0"></span>
+                        <span className="break-words">{feature}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-2 mb-6">
+                <div className="flex flex-wrap gap-1 sm:gap-2 mb-4 sm:mb-6">
                   {projects[currentProject].technologies.map((tech, idx) => (
                     <span
                       key={idx}
-                      className="px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium"
+                      className="px-2 sm:px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs sm:text-sm font-medium break-words"
                     >
                       {tech}
                     </span>
@@ -614,9 +614,9 @@ const Projects3D = () => {
                 </div>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 <Button
-                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-2 sm:py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
                   onClick={() => window.open(projects[currentProject].liveUrl, '_blank')}
                 >
                   <ExternalLink size={20} className="mr-2" />
@@ -651,37 +651,6 @@ const Projects3D = () => {
           </div>
         </div>
 
-        {/* Controls and Instructions */}
-        <div className="text-center mt-6">
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-gray-200/50 dark:border-gray-700/50 max-w-2xl mx-auto">
-            <div className="flex items-center justify-center mb-4">
-              <div className={`w-2 h-2 rounded-full mr-2 ${isAutoPlaying ? 'bg-green-400 animate-pulse' : 'bg-gray-400'}`}/>
-              <span className="text-sm text-gray-500 dark:text-gray-400">
-                {isAutoPlaying ? 'Auto-rotating every 4 seconds' : 'Auto-rotation paused'}
-              </span>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
-              <div className="text-center">
-                <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mx-auto mb-2">
-                  <span className="text-purple-600 dark:text-purple-400">🖱️</span>
-                </div>
-                <p><strong>Drag</strong> to rotate manually</p>
-              </div>
-              <div className="text-center">
-                <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mx-auto mb-2">
-                  <span className="text-blue-600 dark:text-blue-400">👆</span>
-                </div>
-                <p><strong>Touch</strong> for mobile control</p>
-              </div>
-              <div className="text-center">
-                <div className="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mx-auto mb-2">
-                  <span className="text-green-600 dark:text-green-400">⚡</span>
-                </div>
-                <p><strong>Auto-play</strong> or pause rotation</p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Custom CSS for 3D perspective */}

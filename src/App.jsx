@@ -10,7 +10,7 @@ import Education from './components/Education';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import FloatingActionButton from './components/FloatingActionButton';
-import GlobalParticles from './components/GlobalParticles';
+import StarfieldBackground from './components/StarfieldBackground';
 import CursorTrail from './components/CursorTrail';
 import './App.css';
 
@@ -143,8 +143,8 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300 relative">
-      <GlobalParticles />
+    <div className="min-h-screen transition-colors duration-300 relative">
+      <StarfieldBackground />
       <CursorTrail />
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <main className="relative z-10">

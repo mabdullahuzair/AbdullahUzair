@@ -178,26 +178,7 @@ const About = () => {
   };
 
   return (
-    <section id="about" ref={sectionRef} className="py-20 bg-gradient-to-br from-white via-purple-50 to-blue-50 dark:from-gray-900 dark:via-purple-900/50 dark:to-gray-800 relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(12)].map((_, i) => (
-          <div
-            key={i}
-            className={`absolute w-3 h-3 rounded-full opacity-20 animate-pulse ${
-              i % 4 === 0 ? 'bg-purple-400' : 
-              i % 4 === 1 ? 'bg-blue-400' : 
-              i % 4 === 2 ? 'bg-pink-400' : 'bg-cyan-400'
-            }`}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`
-            }}
-          />
-        ))}
-      </div>
+    <section id="about" ref={sectionRef} className="py-20 relative overflow-hidden">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
@@ -278,32 +259,6 @@ const About = () => {
           </div>
         </div>
 
-        {/* Call to Action */}
-        <div className={`text-center mt-16 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-3xl p-8 text-white">
-            <h3 className="text-2xl font-bold mb-4 flex items-center justify-center">
-              <TrendingUp className="mr-3" size={28} />
-              Ready to Build Something Amazing Together?
-            </h3>
-            <p className="text-lg mb-6 opacity-90">
-              I'm always excited to work on new projects and collaborate with amazing people
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button 
-                onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-white text-purple-600 px-8 py-3 rounded-2xl font-bold hover:shadow-lg transform hover:scale-105 transition-all duration-300"
-              >
-                View My Work
-              </button>
-              <button 
-                onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                className="border-2 border-white text-white px-8 py-3 rounded-2xl font-bold hover:bg-white hover:text-purple-600 transform hover:scale-105 transition-all duration-300"
-              >
-                Get In Touch
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

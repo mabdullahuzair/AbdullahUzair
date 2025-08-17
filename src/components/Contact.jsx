@@ -97,31 +97,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" ref={sectionRef} className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-purple-900 dark:to-gray-800 relative overflow-hidden">
-      {/* Interactive Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Floating Elements */}
-        {[...Array(12)].map((_, i) => (
-          <div
-            key={i}
-            className={`absolute w-2 h-2 rounded-full opacity-20 animate-pulse ${
-              i % 4 === 0 ? 'bg-purple-400' :
-              i % 4 === 1 ? 'bg-blue-400' :
-              i % 4 === 2 ? 'bg-indigo-400' : 'bg-cyan-400'
-            }`}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`
-            }}
-          />
-        ))}
-        
-        {/* Gradient Orbs */}
-        <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full opacity-10 animate-pulse blur-xl" />
-        <div className="absolute bottom-20 right-20 w-48 h-48 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full opacity-10 animate-bounce blur-xl" />
-      </div>
+    <section id="contact" ref={sectionRef} className="py-20 relative overflow-hidden">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Dynamic Header */}
@@ -175,23 +151,23 @@ const Contact = () => {
                     <a
                       key={index}
                       href={info.href}
-                      className="group block bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 border border-gray-200 dark:border-gray-700"
+                      className="group block bg-white dark:bg-gray-800 rounded-3xl p-3 sm:p-4 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 border border-gray-200 dark:border-gray-700 overflow-hidden"
                       style={{
                         animationDelay: `${index * 200}ms`
                       }}
                     >
-                      <div className="flex items-center space-x-4">
-                        <div className={`w-16 h-16 bg-gradient-to-br ${info.color} rounded-2xl flex items-center justify-center text-white transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 shadow-lg`}>
-                          <IconComponent size={24} />
+                      <div className="flex items-center space-x-3 sm:space-x-4">
+                        <div className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-br ${info.color} rounded-2xl flex items-center justify-center text-white transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 shadow-lg flex-shrink-0`}>
+                          <IconComponent size={20} className="sm:w-6 sm:h-6" />
                         </div>
-                        <div className="flex-1">
-                          <h3 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-purple-600 transition-colors duration-300">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 dark:text-white group-hover:text-purple-600 transition-colors duration-300 truncate">
                             {info.label}
                           </h3>
-                          <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">
+                          <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-1 break-words">
                             {info.description}
                           </p>
-                          <p className="text-gray-800 dark:text-gray-200 font-medium">
+                          <p className="text-gray-800 dark:text-gray-200 font-medium text-xs sm:text-sm break-all">
                             {info.value}
                           </p>
                         </div>

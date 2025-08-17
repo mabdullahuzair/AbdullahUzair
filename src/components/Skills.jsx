@@ -361,21 +361,8 @@ const Skills = () => {
     <section
       id="skills"
       ref={sectionRef}
-      className="py-10 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-black relative overflow-hidden"
+      className="py-10 sm:py-16 lg:py-20 relative overflow-hidden"
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div 
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: isMobile ? '30px 30px' : '50px 50px'
-          }}
-        />
-      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
@@ -471,7 +458,7 @@ const Skills = () => {
                 touchAction: 'none'
               }}
             >
-              <div className="relative bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-2xl border border-gray-200 dark:border-gray-700">
+              <div className="relative bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl p-1 sm:p-2 md:p-4 lg:p-6 shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto">
                 {/* Keyboard Header */}
                 <div className="text-center mb-4 sm:mb-6">
                   <div className="text-gray-500 dark:text-gray-400 font-mono text-xs">SKILLS KEYBOARD v3.0</div>
@@ -487,9 +474,9 @@ const Skills = () => {
                 </div>
 
                 {/* Keyboard Layout */}
-                <div className="space-y-2 sm:space-y-3">
+                <div className="space-y-0.5 sm:space-y-1 md:space-y-2 overflow-x-hidden">
                   {keyboardLayout.map((row, rowIndex) => (
-                    <div key={rowIndex} className="flex justify-center space-x-1 sm:space-x-2">
+                    <div key={rowIndex} className="flex justify-center space-x-0.5 sm:space-x-1 md:space-x-2 px-0.5 sm:px-1">
                       {row.map((keyData, keyIndex) => (
                         <button
                           key={`${rowIndex}-${keyIndex}`}
@@ -610,7 +597,7 @@ const Skills = () => {
           </div>
 
           {/* Skills Category Cards */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6 max-w-4xl mx-auto px-4">
             {Object.entries(skillsData).map(([categoryKey, category]) => {
               const isFlipped = flippedCard === categoryKey;
               const IconComponent = category.icon;
@@ -619,7 +606,7 @@ const Skills = () => {
               return (
                 <div
                   key={categoryKey}
-                  className="relative h-56 sm:h-64 lg:h-72 cursor-pointer group"
+                  className="relative h-64 sm:h-56 md:h-60 lg:h-64 cursor-pointer group"
                   style={{ perspective: '1000px' }}
                   onClick={() => setFlippedCard(isFlipped ? null : categoryKey)}
                 >
@@ -629,79 +616,85 @@ const Skills = () => {
                     }`}
                   >
                     {/* Front Side - Category Overview */}
-                    <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 border border-gray-200 dark:border-gray-700 p-4 sm:p-6 flex flex-col justify-between hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
-                      <div>
+                    <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 border border-gray-200 dark:border-gray-700 p-4 sm:p-5 md:p-6 flex flex-col hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl overflow-hidden">
+                      <div className="flex items-start space-x-3 mb-4 flex-shrink-0">
                         <div
-                          className="w-16 h-16 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300"
+                          className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0"
                           style={{ backgroundColor: `${category.color}20` }}
                         >
-                          <IconComponent size={32} style={{ color: category.color }} />
+                          <IconComponent size={isMobile ? 18 : 22} style={{ color: category.color }} />
                         </div>
-                        <h4 className="text-gray-900 dark:text-white font-bold text-lg sm:text-xl mb-2">{category.name}</h4>
-                        <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{category.description}</p>
-
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="text-gray-500 dark:text-gray-400 text-sm">Average Level:</span>
-                          <span className="font-bold text-lg" style={{ color: category.color }}>{avgLevel}%</span>
-                        </div>
-
-                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-4">
-                          <div
-                            className="h-full rounded-full transition-all duration-1000 group-hover:animate-pulse"
-                            style={{
-                              width: `${avgLevel}%`,
-                              backgroundColor: category.color
-                            }}
-                          />
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-gray-900 dark:text-white font-bold text-sm sm:text-base md:text-lg leading-tight break-words">{category.name}</h4>
+                          <div className="flex items-center justify-between mt-1">
+                            <span className="text-gray-500 dark:text-gray-400 text-xs">Level:</span>
+                            <span className="font-bold text-sm" style={{ color: category.color }}>{avgLevel}%</span>
+                          </div>
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between">
-                        <span className="text-gray-500 dark:text-gray-400 text-sm">{category.skills.length} Skills</span>
-                        <div
-                          className="px-3 py-1 rounded-full text-xs font-semibold"
-                          style={{
-                            backgroundColor: `${category.color}20`,
-                            color: category.color
-                          }}
-                        >
-                          Click to explore
+                      <div className="flex-1 flex flex-col justify-between min-h-0">
+                        <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm leading-relaxed break-words mb-4">{category.description}</p>
+
+                        <div className="space-y-3">
+                          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                            <div
+                              className="h-full rounded-full transition-all duration-1000 group-hover:animate-pulse"
+                              style={{
+                                width: `${avgLevel}%`,
+                                backgroundColor: category.color
+                              }}
+                            />
+                          </div>
+
+                          <div className="flex items-center justify-between">
+                            <span className="text-gray-500 dark:text-gray-400 text-xs">{category.skills.length} Skills</span>
+                            <div
+                              className="px-3 py-1 rounded-full text-xs font-semibold"
+                              style={{
+                                backgroundColor: `${category.color}20`,
+                                color: category.color
+                              }}
+                            >
+                              Click to explore
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
 
                     {/* Back Side - Skills List */}
-                    <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-2xl border border-gray-200 dark:border-gray-700 p-4 sm:p-6 flex flex-col bg-white dark:bg-gray-800" style={{ background: `linear-gradient(135deg, ${category.color}10, ${category.color}05)` }}>
-                      <div className="flex items-center mb-4">
+                    <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-2xl border border-gray-200 dark:border-gray-700 p-3 sm:p-4 flex flex-col bg-white dark:bg-gray-800 overflow-hidden" style={{ background: `linear-gradient(135deg, ${category.color}10, ${category.color}05)` }}>
+                      <div className="flex items-center mb-3 flex-shrink-0">
                         <div
-                          className="w-8 h-8 rounded-lg flex items-center justify-center mr-3"
+                          className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center mr-2 sm:mr-3"
                           style={{ backgroundColor: `${category.color}30` }}
                         >
-                          <IconComponent size={20} style={{ color: category.color }} />
+                          <IconComponent size={isMobile ? 14 : 18} style={{ color: category.color }} />
                         </div>
-                        <h4 className="text-gray-900 dark:text-white font-bold text-base sm:text-lg">{category.name}</h4>
+                        <h4 className="text-gray-900 dark:text-white font-bold text-sm sm:text-base leading-tight break-words">{category.name}</h4>
                       </div>
 
-                      <div className="space-y-3 flex-1 overflow-y-auto">
+                      <div className="space-y-2 flex-1 overflow-y-auto min-h-0">
                         {category.skills.map((skill, index) => {
                           const SkillIcon = skill.icon;
                           return (
                             <div
                               key={index}
-                              className="bg-gray-100 dark:bg-gray-700/50 rounded-lg p-3 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                              className="bg-gray-100 dark:bg-gray-700/50 rounded-lg p-2 sm:p-3 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 setSelectedSkill(skill);
                               }}
                             >
-                              <div className="flex items-center justify-between mb-2">
-                                <div className="flex items-center">
-                                  <SkillIcon size={16} style={{ color: skill.color }} className="mr-2" />
-                                  <span className="text-gray-900 dark:text-white text-sm font-semibold">{skill.name}</span>
+                              <div className="flex items-center justify-between mb-1.5">
+                                <div className="flex items-center min-w-0 flex-1">
+                                  <SkillIcon size={isMobile ? 12 : 14} style={{ color: skill.color }} className="mr-1.5 flex-shrink-0" />
+                                  <span className="text-gray-900 dark:text-white text-xs sm:text-sm font-semibold truncate">{skill.name}</span>
                                 </div>
-                                <span className="text-xs" style={{ color: skill.color }}>{skill.level}%</span>
+                                <span className="text-xs flex-shrink-0 ml-2" style={{ color: skill.color }}>{skill.level}%</span>
                               </div>
-                              <div className="w-full bg-gray-300 dark:bg-gray-600 rounded-full h-1.5">
+                              <div className="w-full bg-gray-300 dark:bg-gray-600 rounded-full h-1">
                                 <div
                                   className="h-full rounded-full transition-all duration-500"
                                   style={{
@@ -711,8 +704,8 @@ const Skills = () => {
                                 />
                               </div>
                               <div className="flex justify-between mt-1 text-xs text-gray-500 dark:text-gray-400">
-                                <span>{skill.years} year{skill.years !== 1 ? 's' : ''}</span>
-                                <span>{skill.projects} projects</span>
+                                <span>{skill.years}y</span>
+                                <span>{skill.projects}p</span>
                               </div>
                             </div>
                           );
@@ -725,31 +718,6 @@ const Skills = () => {
             })}
           </div>
 
-          {/* Instructions */}
-          <div className="text-center mt-12">
-            <div className="bg-white/80 dark:bg-black/30 backdrop-blur-md rounded-2xl p-6 border border-gray-300 dark:border-gray-700/50 max-w-4xl mx-auto shadow-lg">
-              <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-4 font-mono flex items-center justify-center">
-                <Info className="w-5 h-5 mr-2 text-blue-600 dark:text-blue-400" />
-                Interactive Guide
-              </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-700 dark:text-gray-300">
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-purple-100 dark:bg-purple-600/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-                    <Keyboard className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-                  </div>
-                  <h5 className="font-semibold mb-2 text-gray-900 dark:text-white">Interactive Keyboard</h5>
-                  <p>Drag to rotate the keyboard in 3D space. Press any key to explore that skill.</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-pink-100 dark:bg-pink-600/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-                    <Sparkles className="w-6 h-6 text-pink-600 dark:text-pink-400" />
-                  </div>
-                  <h5 className="font-semibold mb-2 text-gray-900 dark:text-white">Skill Categories</h5>
-                  <p>Click any category card to flip and see all skills in that technology area.</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Selected Menu Skill Modal */}
@@ -800,32 +768,6 @@ const Skills = () => {
           </div>
         )}
 
-        {/* Keyboard Instructions */}
-        <div className="text-center mt-8 sm:mt-12">
-          <div className="bg-white/80 dark:bg-black/30 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-300 dark:border-gray-700/50 shadow-lg">
-            <h4 className="text-sm sm:text-lg font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 font-mono flex items-center justify-center">
-              <Terminal className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-green-600 dark:text-green-400" />
-              Keyboard Controls
-            </h4>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-mono">
-              <div className="flex flex-col items-center">
-                <kbd className="bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded mb-1 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600">H</kbd>
-                <span>HTML5</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <kbd className="bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded mb-1 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600">J</kbd>
-                <span>JavaScript</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <kbd className="bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded mb-1 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600">R</kbd>
-                <span>React.js</span>
-              </div>
-            </div>
-            <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mt-3 sm:mt-4">
-              🖱️ Drag to rotate • ⌨️ Type to explore • 📱 Touch-friendly • 🎯 Click categories to flip
-            </p>
-          </div>
-        </div>
       </div>
 
       {/* CSS for 3D effects */}
