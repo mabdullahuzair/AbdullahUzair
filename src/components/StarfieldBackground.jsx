@@ -193,19 +193,16 @@ const StarfieldBackground = () => {
           onBeforeCompile: shader => {
             shader.uniforms.time = gu.time;
             shader.uniforms.mouse = { value: new THREE.Vector2() };
-            shader.uniforms.mouseInfluence = { value: 0.0 };
             shader.vertexShader = `
               uniform float time;
               uniform vec2 mouse;
-              uniform float mouseInfluence;
               attribute float sizes;
               attribute vec4 shift;
               varying vec3 vColor;
-              varying float vDistortion;
               ${shader.vertexShader}
             `.replace(
               `gl_PointSize = size;`,
-              `gl_PointSize = size * sizes * (1.0 + vDistortion * 2.0);`
+              `gl_PointSize = size * sizes;`
             ).replace(
               `#include <color_vertex>`,
               `#include <color_vertex>
@@ -216,8 +213,6 @@ const StarfieldBackground = () => {
                   'vColor = mix(vec3(180., 180., 180.), vec3(120., 120., 200.), d) / 255.;' :
                   'vColor = mix(vec3(30., 30., 30.), vec3(60., 30., 90.), d) / 255.;'
                 }
-                // Add distortion intensity to color
-                vColor *= (1.0 + vDistortion * 0.5);
               `
             ).replace(
               `#include <begin_vertex>`,
