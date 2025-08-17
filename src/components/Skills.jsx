@@ -474,9 +474,9 @@ const Skills = () => {
                 </div>
 
                 {/* Keyboard Layout */}
-                <div className="space-y-0.5 sm:space-y-1 md:space-y-2 overflow-x-auto max-w-full">
+                <div className="space-y-0.5 sm:space-y-1 md:space-y-2 overflow-x-hidden">
                   {keyboardLayout.map((row, rowIndex) => (
-                    <div key={rowIndex} className="flex justify-center space-x-0.5 sm:space-x-1 md:space-x-2 min-w-max px-1 sm:px-2">
+                    <div key={rowIndex} className="flex justify-center space-x-0.5 sm:space-x-1 md:space-x-2 px-0.5 sm:px-1">
                       {row.map((keyData, keyIndex) => (
                         <button
                           key={`${rowIndex}-${keyIndex}`}
@@ -809,7 +809,7 @@ const Skills = () => {
               </div>
             </div>
             <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mt-3 sm:mt-4">
-              ����️ Drag to rotate • ⌨️ Type to explore • 📱 Touch-friendly • 🎯 Click categories to flip
+              🖱️ Drag to rotate • ⌨️ Type to explore • 📱 Touch-friendly • 🎯 Click categories to flip
             </p>
           </div>
         </div>
