@@ -606,7 +606,7 @@ const Skills = () => {
               return (
                 <div
                   key={categoryKey}
-                  className="relative h-56 sm:h-48 md:h-56 lg:h-64 cursor-pointer group"
+                  className="relative h-64 sm:h-56 md:h-60 lg:h-64 cursor-pointer group"
                   style={{ perspective: '1000px' }}
                   onClick={() => setFlippedCard(isFlipped ? null : categoryKey)}
                 >
@@ -616,43 +616,49 @@ const Skills = () => {
                     }`}
                   >
                     {/* Front Side - Category Overview */}
-                    <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 border border-gray-200 dark:border-gray-700 p-3 sm:p-4 md:p-5 lg:p-6 flex flex-col justify-between hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl overflow-hidden">
-                      <div className="flex-1 flex flex-col min-h-0">
+                    <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 border border-gray-200 dark:border-gray-700 p-4 sm:p-5 md:p-6 flex flex-col hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl overflow-hidden">
+                      <div className="flex items-start space-x-3 mb-4 flex-shrink-0">
                         <div
-                          className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-xl flex items-center justify-center mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300 flex-shrink-0"
+                          className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0"
                           style={{ backgroundColor: `${category.color}20` }}
                         >
-                          <IconComponent size={isMobile ? 16 : 20} className="sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-8 lg:h-8" style={{ color: category.color }} />
+                          <IconComponent size={isMobile ? 18 : 22} style={{ color: category.color }} />
                         </div>
-                        <h4 className="text-gray-900 dark:text-white font-bold text-xs sm:text-sm md:text-base lg:text-lg mb-1 sm:mb-2 leading-tight break-words flex-shrink-0">{category.name}</h4>
-                        <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-xs md:text-sm mb-2 sm:mb-3 leading-tight break-words flex-1 overflow-hidden">{category.description}</p>
-
-                        <div className="flex items-center justify-between mb-1 sm:mb-2 flex-shrink-0">
-                          <span className="text-gray-500 dark:text-gray-400 text-xs">Level:</span>
-                          <span className="font-bold text-xs sm:text-sm md:text-base" style={{ color: category.color }}>{avgLevel}%</span>
-                        </div>
-
-                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 sm:h-2 mb-2 sm:mb-3 flex-shrink-0">
-                          <div
-                            className="h-full rounded-full transition-all duration-1000 group-hover:animate-pulse"
-                            style={{
-                              width: `${avgLevel}%`,
-                              backgroundColor: category.color
-                            }}
-                          />
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-gray-900 dark:text-white font-bold text-sm sm:text-base md:text-lg leading-tight break-words">{category.name}</h4>
+                          <div className="flex items-center justify-between mt-1">
+                            <span className="text-gray-500 dark:text-gray-400 text-xs">Level:</span>
+                            <span className="font-bold text-sm" style={{ color: category.color }}>{avgLevel}%</span>
+                          </div>
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between mt-auto flex-shrink-0">
-                        <span className="text-gray-500 dark:text-gray-400 text-xs">{category.skills.length} Skills</span>
-                        <div
-                          className="px-2 py-1 rounded-full text-xs font-semibold"
-                          style={{
-                            backgroundColor: `${category.color}20`,
-                            color: category.color
-                          }}
-                        >
-                          Click
+                      <div className="flex-1 flex flex-col justify-between min-h-0">
+                        <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm leading-relaxed break-words mb-4">{category.description}</p>
+
+                        <div className="space-y-3">
+                          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                            <div
+                              className="h-full rounded-full transition-all duration-1000 group-hover:animate-pulse"
+                              style={{
+                                width: `${avgLevel}%`,
+                                backgroundColor: category.color
+                              }}
+                            />
+                          </div>
+
+                          <div className="flex items-center justify-between">
+                            <span className="text-gray-500 dark:text-gray-400 text-xs">{category.skills.length} Skills</span>
+                            <div
+                              className="px-3 py-1 rounded-full text-xs font-semibold"
+                              style={{
+                                backgroundColor: `${category.color}20`,
+                                color: category.color
+                              }}
+                            >
+                              Click to explore
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
