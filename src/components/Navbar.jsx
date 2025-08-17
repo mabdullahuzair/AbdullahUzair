@@ -76,12 +76,14 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             </div>
 
             {/* Desktop Navigation - FORCED VISIBILITY */}
-            <div 
-              style={{ 
-                display: isLargeScreen ? 'flex' : 'none',
+            <div
+              style={{
+                display: isLargeScreen ? 'flex !important' : 'none !important',
                 alignItems: 'center',
-                gap: '0.25rem'
+                gap: '0.25rem',
+                visibility: isLargeScreen ? 'visible' : 'hidden'
               }}
+              className={isLargeScreen ? 'flex' : 'hidden'}
             >
               {navItems.map((item) => {
                 const IconComponent = item.icon;
