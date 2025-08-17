@@ -251,11 +251,13 @@ const StarfieldBackground = () => {
 
             shader.fragmentShader = `
               varying vec3 vColor;
+              varying float vDistortion;
               ${shader.fragmentShader}
             `.replace(
               `vec4 diffuseColor = vec4( diffuse, opacity );`,
               `float d = length(gl_PointCoord.xy - 0.5);
-               vec4 diffuseColor = vec4( vColor, smoothstep(0.5, 0.1, d) * 0.15 );`
+               float alpha = smoothstep(0.5, 0.1, d) * (0.15 + vDistortion * 0.3);
+               vec4 diffuseColor = vec4( vColor, alpha );`
             );
           }
         });
