@@ -616,16 +616,16 @@ const Skills = () => {
                     }`}
                   >
                     {/* Front Side - Category Overview */}
-                    <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 border border-gray-200 dark:border-gray-700 p-4 sm:p-6 flex flex-col justify-between hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
-                      <div>
+                    <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 border border-gray-200 dark:border-gray-700 p-2 sm:p-3 md:p-4 lg:p-6 flex flex-col justify-between hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl overflow-hidden">
+                      <div className="flex-1 flex flex-col">
                         <div
-                          className="w-16 h-16 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300"
+                          className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-xl flex items-center justify-center mb-2 sm:mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300 flex-shrink-0"
                           style={{ backgroundColor: `${category.color}20` }}
                         >
-                          <IconComponent size={32} style={{ color: category.color }} />
+                          <IconComponent size={20} className="sm:w-6 sm:h-6 md:w-8 md:h-8" style={{ color: category.color }} />
                         </div>
-                        <h4 className="text-gray-900 dark:text-white font-bold text-lg sm:text-xl mb-2">{category.name}</h4>
-                        <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{category.description}</p>
+                        <h4 className="text-gray-900 dark:text-white font-bold text-sm sm:text-base md:text-lg lg:text-xl mb-1 sm:mb-2 line-clamp-2">{category.name}</h4>
+                        <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm mb-2 sm:mb-3 md:mb-4 line-clamp-2 flex-1">{category.description}</p>
 
                         <div className="flex items-center justify-between mb-3">
                           <span className="text-gray-500 dark:text-gray-400 text-sm">Average Level:</span>
