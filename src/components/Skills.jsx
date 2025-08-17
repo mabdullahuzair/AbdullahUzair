@@ -627,12 +627,12 @@ const Skills = () => {
                         <h4 className="text-gray-900 dark:text-white font-bold text-sm sm:text-base md:text-lg lg:text-xl mb-1 sm:mb-2 line-clamp-2">{category.name}</h4>
                         <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm mb-2 sm:mb-3 md:mb-4 line-clamp-2 flex-1">{category.description}</p>
 
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="text-gray-500 dark:text-gray-400 text-sm">Average Level:</span>
-                          <span className="font-bold text-lg" style={{ color: category.color }}>{avgLevel}%</span>
+                        <div className="flex items-center justify-between mb-1 sm:mb-2 md:mb-3">
+                          <span className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">Level:</span>
+                          <span className="font-bold text-sm sm:text-base md:text-lg" style={{ color: category.color }}>{avgLevel}%</span>
                         </div>
 
-                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-4">
+                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 sm:h-3 mb-2 sm:mb-3 md:mb-4">
                           <div
                             className="h-full rounded-full transition-all duration-1000 group-hover:animate-pulse"
                             style={{
@@ -643,8 +643,8 @@ const Skills = () => {
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between">
-                        <span className="text-gray-500 dark:text-gray-400 text-sm">{category.skills.length} Skills</span>
+                      <div className="flex items-center justify-between mt-auto">
+                        <span className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">{category.skills.length} Skills</span>
                         <div
                           className="px-3 py-1 rounded-full text-xs font-semibold"
                           style={{
