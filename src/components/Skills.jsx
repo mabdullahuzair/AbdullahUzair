@@ -474,9 +474,9 @@ const Skills = () => {
                 </div>
 
                 {/* Keyboard Layout */}
-                <div className="space-y-2 sm:space-y-3">
+                <div className="space-y-1 sm:space-y-2 md:space-y-3 overflow-x-auto">
                   {keyboardLayout.map((row, rowIndex) => (
-                    <div key={rowIndex} className="flex justify-center space-x-1 sm:space-x-2">
+                    <div key={rowIndex} className="flex justify-center space-x-0.5 sm:space-x-1 md:space-x-2 min-w-max px-2">
                       {row.map((keyData, keyIndex) => (
                         <button
                           key={`${rowIndex}-${keyIndex}`}
