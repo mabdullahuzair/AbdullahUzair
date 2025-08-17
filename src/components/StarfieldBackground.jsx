@@ -221,13 +221,13 @@ const StarfieldBackground = () => {
                 transformed += vec3(cos(moveS) * sin(moveT), cos(moveT), sin(moveS) * sin(moveT)) * shift.w;
 
                 // Simple cursor hover distortion effect
-                vec2 mousePos = mouse * 20.0;
+                vec2 mousePos = mouse * 15.0;
                 float mouseDistance = length(position.xy - mousePos);
-                float mouseInfluence = smoothstep(4.0, 0.0, mouseDistance);
+                float mouseInfluence = smoothstep(8.0, 0.0, mouseDistance);
                 vec2 mouseDirection = normalize(position.xy - mousePos);
 
                 // Particles move away from cursor position
-                transformed.xy += mouseDirection * mouseInfluence * 3.0;
+                transformed.xy += mouseDirection * mouseInfluence * 5.0;
               `
             );
 
