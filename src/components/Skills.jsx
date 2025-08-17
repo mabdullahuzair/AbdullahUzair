@@ -458,7 +458,7 @@ const Skills = () => {
                 touchAction: 'none'
               }}
             >
-              <div className="relative bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl p-2 sm:p-4 lg:p-6 shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+              <div className="relative bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl p-1 sm:p-2 md:p-4 lg:p-6 shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto">
                 {/* Keyboard Header */}
                 <div className="text-center mb-4 sm:mb-6">
                   <div className="text-gray-500 dark:text-gray-400 font-mono text-xs">SKILLS KEYBOARD v3.0</div>
@@ -809,7 +809,7 @@ const Skills = () => {
               </div>
             </div>
             <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mt-3 sm:mt-4">
-              🖱️ Drag to rotate • ⌨️ Type to explore • 📱 Touch-friendly • 🎯 Click categories to flip
+              ����️ Drag to rotate • ⌨️ Type to explore • 📱 Touch-friendly • 🎯 Click categories to flip
             </p>
           </div>
         </div>
