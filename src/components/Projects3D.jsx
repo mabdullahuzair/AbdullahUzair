@@ -651,37 +651,6 @@ const Projects3D = () => {
           </div>
         </div>
 
-        {/* Controls and Instructions */}
-        <div className="text-center mt-6">
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-gray-200/50 dark:border-gray-700/50 max-w-2xl mx-auto">
-            <div className="flex items-center justify-center mb-4">
-              <div className={`w-2 h-2 rounded-full mr-2 ${isAutoPlaying ? 'bg-green-400 animate-pulse' : 'bg-gray-400'}`}/>
-              <span className="text-sm text-gray-500 dark:text-gray-400">
-                {isAutoPlaying ? 'Auto-rotating every 4 seconds' : 'Auto-rotation paused'}
-              </span>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
-              <div className="text-center">
-                <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mx-auto mb-2">
-                  <span className="text-purple-600 dark:text-purple-400">🖱️</span>
-                </div>
-                <p><strong>Drag</strong> to rotate manually</p>
-              </div>
-              <div className="text-center">
-                <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mx-auto mb-2">
-                  <span className="text-blue-600 dark:text-blue-400">👆</span>
-                </div>
-                <p><strong>Touch</strong> for mobile control</p>
-              </div>
-              <div className="text-center">
-                <div className="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mx-auto mb-2">
-                  <span className="text-green-600 dark:text-green-400">⚡</span>
-                </div>
-                <p><strong>Auto-play</strong> or pause rotation</p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Custom CSS for 3D perspective */}
