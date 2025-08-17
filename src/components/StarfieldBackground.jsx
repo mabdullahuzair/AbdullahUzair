@@ -113,6 +113,23 @@ const StarfieldBackground = () => {
         window.addEventListener("touchmove", handleTouchMove, { passive: true });
         window.addEventListener("touchend", handleTouchEnd, { passive: true });
 
+        // Track mouse position for hover effects
+        const handleMouseHover = (event) => {
+          if (!isDraggingRef.current) {
+            const rect = mountRef.current.getBoundingClientRect();
+            mouseRef.current.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouseRef.current.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+          }
+        };
+
+        // Track scroll for background rotation
+        const handleScroll = () => {
+          scrollOffsetRef.current = window.scrollY * 0.001;
+        };
+
+        mountRef.current.addEventListener("mousemove", handleMouseHover, { passive: true });
+        window.addEventListener("scroll", handleScroll, { passive: true });
+
         // Controls setup - exact match
         let controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
