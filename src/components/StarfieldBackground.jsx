@@ -176,6 +176,9 @@ const StarfieldBackground = () => {
         g.setAttribute("sizes", new THREE.Float32BufferAttribute(sizes, 1));
         g.setAttribute("shift", new THREE.Float32BufferAttribute(shift, 4));
 
+        // Store shader reference for uniform updates
+        let shaderRef = null;
+
         // Create material with hover distortion and theme support
         let m = new THREE.PointsMaterial({
           size: 0.08, // Slightly thicker particles
@@ -186,6 +189,7 @@ const StarfieldBackground = () => {
           onBeforeCompile: shader => {
             shader.uniforms.time = gu.time;
             shader.uniforms.mouse = { value: new THREE.Vector2() };
+            shaderRef = shader; // Store reference for later use
             shader.vertexShader = `
               uniform float time;
               uniform vec2 mouse;
