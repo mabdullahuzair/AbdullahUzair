@@ -8,6 +8,7 @@ const StarfieldBackground = () => {
   const isDraggingRef = useRef(false);
   const dragStartRef = useRef({ x: 0, y: 0 });
   const cameraRotationRef = useRef({ x: 0, y: 0 });
+  const scrollOffsetRef = useRef(0);
 
   useEffect(() => {
     let mounted = true;
