@@ -393,7 +393,7 @@ const Projects3D = () => {
                 return (
                   <div
                     key={index}
-                    className={`absolute w-40 h-52 sm:w-48 sm:h-60 md:w-56 md:h-72 transition-all duration-300 md:duration-700 cursor-pointer group ${isActive ? 'z-30' : 'z-10'} ${isDragging ? 'cursor-grabbing' : 'cursor-grab'} select-none`}
+                    className={`absolute w-32 h-40 sm:w-36 sm:h-44 md:w-44 md:h-56 transition-all duration-300 md:duration-700 cursor-pointer group ${isActive ? 'z-30' : 'z-10'} ${isDragging ? 'cursor-grabbing' : 'cursor-grab'} select-none`}
                     style={{
                       transform: `translateX(${(x || 0).toFixed(2)}px) translateZ(${(z || 0).toFixed(2)}px)`,
                       transformStyle: 'preserve-3d'
