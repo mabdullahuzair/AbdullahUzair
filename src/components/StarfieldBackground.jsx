@@ -291,9 +291,15 @@ const StarfieldBackground = () => {
           let t = clock.getElapsedTime() * 0.5;
           gu.time.value = t * Math.PI;
 
-          // Update mouse uniform for hover effects
-          if (m.onBeforeCompile.shader && m.onBeforeCompile.shader.uniforms.mouse) {
-            m.onBeforeCompile.shader.uniforms.mouse.value.set(mouseRef.current.x, mouseRef.current.y);
+          // Update mouse uniforms for hover effects
+          const shader = m.onBeforeCompile.shader;
+          if (shader && shader.uniforms.mouse) {
+            shader.uniforms.mouse.value.set(mouseRef.current.x, mouseRef.current.y);
+            if (shader.uniforms.mouseInfluence) {
+              shader.uniforms.mouseInfluence.value = mouseRef.current.influence || 0.0;
+              // Gradually reduce influence over time
+              mouseRef.current.influence = (mouseRef.current.influence || 0) * 0.95;
+            }
           }
 
           // Apply 3D camera rotation based on drag + scroll offset
