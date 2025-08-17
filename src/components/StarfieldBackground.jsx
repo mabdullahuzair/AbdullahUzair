@@ -340,7 +340,8 @@ const StarfieldBackground = () => {
         width: '100%',
         height: '100%',
         zIndex: 0,
-        cursor: isDraggingRef.current ? 'grabbing' : 'grab'
+        cursor: isDraggingRef.current ? 'grabbing' : 'grab',
+        pointerEvents: 'auto' // Enable pointer events for hover
       }}
     />
   );
