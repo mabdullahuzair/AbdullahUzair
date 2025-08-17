@@ -5,25 +5,14 @@ import { Button } from '@/components/ui/button.jsx';
 const Navbar = ({ darkMode, toggleDarkMode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
 
-    const handleResize = () => {
-      setIsLargeScreen(window.innerWidth >= 1024); // lg breakpoint
-    };
-
-    handleResize(); // Initial check
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleResize);
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToSection = (sectionId) => {
@@ -44,16 +33,43 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
     { id: 'contact', label: 'Contact', icon: Mail }
   ];
 
-  const navbarBgClass = scrolled
-    ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-lg border-b border-gray-200/50 dark:border-gray-700/50'
-    : 'bg-white/10 dark:bg-gray-900/10 backdrop-blur-sm';
-
   return (
     <>
-      <nav 
-        className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-500 w-full ${navbarBgClass}`}
-        style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999 }}
-      >
+      <style jsx>{`
+        .navbar-desktop-menu {
+          display: none !important;
+        }
+        
+        @media (min-width: 1024px) {
+          .navbar-desktop-menu {
+            display: flex !important;
+            align-items: center;
+            gap: 0.25rem;
+          }
+          .navbar-mobile-toggle {
+            display: none !important;
+          }
+          .navbar-mobile-menu {
+            display: none !important;
+          }
+        }
+        
+        .navbar-mobile-toggle {
+          display: flex !important;
+        }
+        
+        @media (max-width: 1023px) {
+          .navbar-desktop-menu {
+            display: none !important;
+          }
+        }
+      `}</style>
+      
+      <nav className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-500 w-full ${
+        scrolled
+          ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-lg border-b border-gray-200/50 dark:border-gray-700/50'
+          : 'bg-white/10 dark:bg-gray-900/10 backdrop-blur-sm'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 lg:h-20">
             
@@ -75,47 +91,18 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
               </div>
             </div>
 
-            {/* Desktop Navigation - FORCED VISIBILITY */}
-            <div
-              style={{
-                display: isLargeScreen ? 'flex !important' : 'none !important',
-                alignItems: 'center',
-                gap: '0.25rem',
-                visibility: isLargeScreen ? 'visible' : 'hidden'
-              }}
-              className={isLargeScreen ? 'flex' : 'hidden'}
-            >
+            {/* Desktop Navigation */}
+            <div className="navbar-desktop-menu">
               {navItems.map((item) => {
                 const IconComponent = item.icon;
                 return (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(`#${item.id}`)}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.5rem',
-                      padding: '0.5rem 1rem',
-                      borderRadius: '0.75rem',
-                      transition: 'all 0.3s ease',
-                      backgroundColor: 'transparent',
-                      border: 'none',
-                      cursor: 'pointer',
-                      fontSize: '0.875rem',
-                      fontWeight: '500'
-                    }}
-                    className="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800"
-                    onMouseEnter={(e) => {
-                      e.target.style.backgroundColor = darkMode ? 'rgba(31, 41, 55, 1)' : 'rgba(243, 244, 246, 1)';
-                      e.target.style.color = darkMode ? 'rgb(168, 85, 247)' : 'rgb(147, 51, 234)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.backgroundColor = 'transparent';
-                      e.target.style.color = darkMode ? 'rgb(209, 213, 219)' : 'rgb(55, 65, 81)';
-                    }}
+                    className="group flex items-center space-x-2 px-4 py-2 rounded-xl transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 font-medium"
                   >
-                    <IconComponent size={18} />
-                    <span>{item.label}</span>
+                    <IconComponent size={18} className="group-hover:scale-110 transition-transform duration-300" />
+                    <span className="text-sm">{item.label}</span>
                   </button>
                 );
               })}
@@ -137,13 +124,12 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 )}
               </Button>
 
-              {/* Mobile menu button - FORCED HIDDEN ON LARGE SCREENS */}
+              {/* Mobile menu button */}
               <Button
                 onClick={() => setIsOpen(!isOpen)}
                 variant="ghost"
                 size="sm"
-                style={{ display: isLargeScreen ? 'none' : 'flex' }}
-                className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300"
+                className="navbar-mobile-toggle w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300"
               >
                 {isOpen ? (
                   <X size={18} className="text-gray-700 dark:text-gray-300" />
@@ -155,17 +141,12 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
           </div>
         </div>
 
-        {/* Mobile Navigation - FORCED HIDDEN ON LARGE SCREENS */}
-        <div 
-          style={{ 
-            display: isLargeScreen ? 'none' : 'block',
-            transition: 'all 0.3s ease',
-            overflow: 'hidden',
-            maxHeight: isOpen ? '500px' : '0px',
-            opacity: isOpen ? 1 : 0,
-            visibility: isOpen ? 'visible' : 'hidden'
-          }}
-        >
+        {/* Mobile Navigation */}
+        <div className={`navbar-mobile-menu transition-all duration-300 ease-in-out overflow-hidden ${
+          isOpen
+            ? 'max-h-screen opacity-100 visible'
+            : 'max-h-0 opacity-0 invisible'
+        }`}>
           <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-t border-gray-200/50 dark:border-gray-700/50">
             <div className="px-4 py-6 space-y-2 max-h-[70vh] overflow-y-auto">
               {navItems.map((item, index) => {
@@ -187,10 +168,10 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         </div>
       </nav>
 
-      {/* Mobile menu overlay - FORCED HIDDEN ON LARGE SCREENS */}
-      {isOpen && !isLargeScreen && (
+      {/* Mobile menu overlay */}
+      {isOpen && (
         <div
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[9998]"
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[9998] lg:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
