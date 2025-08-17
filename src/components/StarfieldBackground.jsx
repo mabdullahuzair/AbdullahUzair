@@ -168,8 +168,10 @@ const StarfieldBackground = () => {
           opacity: 0.12, // Slightly more visible for interaction
           onBeforeCompile: shader => {
             shader.uniforms.time = gu.time;
+            shader.uniforms.mouse = { value: new THREE.Vector2() };
             shader.vertexShader = `
               uniform float time;
+              uniform vec2 mouse;
               attribute float sizes;
               attribute vec4 shift;
               varying vec3 vColor;
@@ -182,7 +184,11 @@ const StarfieldBackground = () => {
               `#include <color_vertex>
                 float d = length(abs(position) / vec3(40., 10., 40));
                 d = clamp(d, 0., 1.);
-                vColor = mix(vec3(227., 155., 0.), vec3(100., 50., 255.), d) / 255.;
+                // Theme-aware colors: dark particles for light theme, light particles for dark theme
+                ${isDarkMode ?
+                  'vColor = mix(vec3(200., 200., 200.), vec3(150., 150., 255.), d) / 255.;' :
+                  'vColor = mix(vec3(50., 50., 50.), vec3(80., 50., 120.), d) / 255.;'
+                }
               `
             ).replace(
               `#include <begin_vertex>`,
