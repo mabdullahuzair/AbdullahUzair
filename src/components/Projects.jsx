@@ -238,7 +238,7 @@ const Projects = () => {
                     </div>
 
                     {/* Project Details */}
-                    <div className="md:w-1/2 p-4 sm:p-6 flex flex-col justify-between">
+                    <div className="md:w-1/2 p-3 sm:p-4 md:p-6 flex flex-col justify-between overflow-hidden">
                       <div>
                         <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">
                           {project.title}
