@@ -151,7 +151,7 @@ const Contact = () => {
                     <a
                       key={index}
                       href={info.href}
-                      className="group block bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 border border-gray-200 dark:border-gray-700"
+                      className="group block bg-white dark:bg-gray-800 rounded-3xl p-3 sm:p-4 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 border border-gray-200 dark:border-gray-700 overflow-hidden"
                       style={{
                         animationDelay: `${index * 200}ms`
                       }}
