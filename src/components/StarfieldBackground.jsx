@@ -159,13 +159,13 @@ const StarfieldBackground = () => {
         g.setAttribute("sizes", new THREE.Float32BufferAttribute(sizes, 1));
         g.setAttribute("shift", new THREE.Float32BufferAttribute(shift, 4));
 
-        // Create material with exact shader modifications
+        // Create material with hover distortion and theme support
         let m = new THREE.PointsMaterial({
-          size: 0.05, // Much thinner particles
+          size: 0.08, // Slightly thicker particles
           transparent: true,
           depthTest: false,
           blending: THREE.AdditiveBlending,
-          opacity: 0.08, // Very very low visibility
+          opacity: 0.12, // Slightly more visible for interaction
           onBeforeCompile: shader => {
             shader.uniforms.time = gu.time;
             shader.vertexShader = `
