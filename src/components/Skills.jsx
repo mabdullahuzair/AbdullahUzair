@@ -597,7 +597,7 @@ const Skills = () => {
           </div>
 
           {/* Skills Category Cards */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-6xl mx-auto px-4">
             {Object.entries(skillsData).map(([categoryKey, category]) => {
               const isFlipped = flippedCard === categoryKey;
               const IconComponent = category.icon;
