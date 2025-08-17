@@ -290,6 +290,10 @@ const StarfieldBackground = () => {
           window.removeEventListener("touchstart", handleTouchStart);
           window.removeEventListener("touchmove", handleTouchMove);
           window.removeEventListener("touchend", handleTouchEnd);
+          window.removeEventListener("scroll", handleScroll);
+          if (mountRef.current) {
+            mountRef.current.removeEventListener("mousemove", handleMouseHover);
+          }
           renderer.setAnimationLoop(null);
 
           if (g) g.dispose();
