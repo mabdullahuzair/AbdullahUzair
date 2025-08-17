@@ -430,10 +430,10 @@ const Projects3D = () => {
                         </div>
 
                         {/* Status Badge */}
-                        <div className="absolute top-3 left-3">
-                          <span className={`px-3 py-1 text-xs font-semibold rounded-full backdrop-blur-sm ${
-                            project.status === 'Completed' 
-                              ? 'bg-green-500/80 text-white' 
+                        <div className="absolute top-1 sm:top-2 md:top-3 left-1 sm:left-2 md:left-3">
+                          <span className={`px-1 sm:px-2 md:px-3 py-0.5 sm:py-1 text-xs font-semibold rounded-full backdrop-blur-sm ${
+                            project.status === 'Completed'
+                              ? 'bg-green-500/80 text-white'
                               : 'bg-yellow-500/80 text-black'
                           }`}>
                             {project.status}
@@ -441,9 +441,9 @@ const Projects3D = () => {
                         </div>
 
                         {/* Rating */}
-                        <div className="absolute top-3 right-3 flex items-center space-x-1 bg-black/30 backdrop-blur-sm rounded-full px-3 py-1">
-                          <Star size={14} className="text-yellow-400 fill-current" />
-                          <span className="text-white text-sm font-semibold">{project.rating}</span>
+                        <div className="absolute top-1 sm:top-2 md:top-3 right-1 sm:right-2 md:right-3 flex items-center space-x-0.5 sm:space-x-1 bg-black/30 backdrop-blur-sm rounded-full px-1 sm:px-2 md:px-3 py-0.5 sm:py-1">
+                          <Star size={10} className="sm:w-3 sm:h-3 md:w-4 md:h-4 text-yellow-400 fill-current" />
+                          <span className="text-white text-xs font-semibold">{project.rating}</span>
                         </div>
 
                         {/* Year */}
