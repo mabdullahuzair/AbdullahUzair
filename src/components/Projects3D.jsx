@@ -385,7 +385,7 @@ const Projects3D = () => {
             >
               {projects.map((project, index) => {
                 const angle = (index * 45) * (Math.PI / 180); // 45 degrees between cards for 8 projects
-                const radius = window.innerWidth > 768 ? 350 : window.innerWidth > 640 ? 220 : 200; // Better responsive radius
+                const radius = window.innerWidth > 768 ? 280 : window.innerWidth > 640 ? 180 : 160; // Reduced radius for smaller cards
                 const x = isNaN(Math.sin(angle)) ? 0 : Math.sin(angle) * radius;
                 const z = isNaN(Math.cos(angle)) ? 0 : Math.cos(angle) * radius;
                 const isActive = index === currentProject;
