@@ -419,13 +419,13 @@ const Projects3D = () => {
                         <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-90`} />
                         
                         {/* Content overlay */}
-                        <div className="absolute inset-0 flex items-center justify-center text-white p-4">
+                        <div className="absolute inset-0 flex items-center justify-center text-white p-2 sm:p-3 md:p-4">
                           <div className="text-center">
-                            <div className="w-16 h-16 mx-auto mb-3 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
-                              <Eye size={32} />
+                            <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 mx-auto mb-1 sm:mb-2 md:mb-3 bg-white/20 rounded-xl sm:rounded-2xl flex items-center justify-center backdrop-blur-sm transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
+                              <Eye size={16} className="sm:w-6 sm:h-6 md:w-8 md:h-8" />
                             </div>
-                            <h3 className="text-lg font-bold mb-1">{project.title}</h3>
-                            <p className="text-sm opacity-90">{project.category}</p>
+                            <h3 className="text-xs sm:text-sm md:text-lg font-bold mb-0.5 sm:mb-1 line-clamp-2">{project.title}</h3>
+                            <p className="text-xs sm:text-sm opacity-90 line-clamp-1">{project.category}</p>
                           </div>
                         </div>
 
