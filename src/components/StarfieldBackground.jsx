@@ -119,6 +119,13 @@ const StarfieldBackground = () => {
             const rect = mountRef.current.getBoundingClientRect();
             mouseRef.current.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
             mouseRef.current.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+            // Calculate mouse influence intensity based on movement
+            const movementSpeed = Math.sqrt(
+              Math.pow(event.movementX || 0, 2) +
+              Math.pow(event.movementY || 0, 2)
+            );
+            mouseRef.current.influence = Math.min(movementSpeed / 10, 1.0);
           }
         };
 
