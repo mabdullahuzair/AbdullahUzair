@@ -606,7 +606,7 @@ const Skills = () => {
               return (
                 <div
                   key={categoryKey}
-                  className="relative h-40 sm:h-48 md:h-56 lg:h-64 cursor-pointer group"
+                  className="relative h-56 sm:h-48 md:h-56 lg:h-64 cursor-pointer group"
                   style={{ perspective: '1000px' }}
                   onClick={() => setFlippedCard(isFlipped ? null : categoryKey)}
                 >
