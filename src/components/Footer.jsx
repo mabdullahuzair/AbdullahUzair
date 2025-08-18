@@ -31,7 +31,7 @@ const Footer = () => {
               <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
                 Muhammad Abdullah Uzair
               </h3>
-              <p className="text-gray-300 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 Software Engineering student passionate about creating innovative web solutions 
                 and building amazing user experiences with modern technologies.
               </p>
@@ -54,7 +54,7 @@ const Footer = () => {
                 </a>
                 <a
                   href="mailto:abdullahuzair860@gmail.com"
-                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-300 hover:bg-green-600 hover:text-white transition-all duration-300 transform hover:scale-110"
+                  className="w-10 h-10 bg-gray-200 dark:bg-gray-800 rounded-lg flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-green-600 hover:text-white transition-all duration-300 transform hover:scale-110"
                 >
                   <Mail size={20} />
                 </a>
