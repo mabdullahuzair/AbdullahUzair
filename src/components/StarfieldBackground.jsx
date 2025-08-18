@@ -331,6 +331,9 @@ const StarfieldBackground = () => {
           if (mountRef.current) {
             mountRef.current.removeEventListener("mousemove", handleMouseHover);
           }
+          if (themeObserver) {
+            themeObserver.disconnect();
+          }
           renderer.setAnimationLoop(null);
 
           if (g) g.dispose();
