@@ -29,7 +29,7 @@ const StarfieldBackground = () => {
         mountRef.current.innerHTML = '';
 
         // Scene setup with grayish theme support
-        let scene = new THREE.Scene();
+        scene = new THREE.Scene();
         // Check for dark mode and set appropriate background
         const isDarkMode = document.documentElement.classList.contains('dark');
         scene.background = new THREE.Color(isDarkMode ? 0x1a1a1a : 0xfafafa);
@@ -180,8 +180,7 @@ const StarfieldBackground = () => {
         g.setAttribute("sizes", new THREE.Float32BufferAttribute(sizes, 1));
         g.setAttribute("shift", new THREE.Float32BufferAttribute(shift, 4));
 
-        // Store shader reference for uniform updates
-        let shaderRef = null;
+        // Shader reference already declared above
 
         // Create material with hover distortion and theme support
         let m = new THREE.PointsMaterial({
