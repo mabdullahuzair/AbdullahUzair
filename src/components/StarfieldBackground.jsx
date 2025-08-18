@@ -187,8 +187,8 @@ const StarfieldBackground = () => {
           size: 0.08, // Slightly thicker particles
           transparent: true,
           depthTest: false,
-          blending: THREE.AdditiveBlending,
-          opacity: 0.12, // Slightly more visible for interaction
+          blending: isDarkMode ? THREE.AdditiveBlending : THREE.NormalBlending,
+          opacity: isDarkMode ? 0.12 : 0.6, // Higher opacity for dark particles on light background
           onBeforeCompile: shader => {
             shader.uniforms.time = gu.time;
             shader.uniforms.mouse = { value: new THREE.Vector2() };
