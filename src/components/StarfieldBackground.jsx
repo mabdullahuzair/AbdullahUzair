@@ -292,14 +292,81 @@ const StarfieldBackground = () => {
 
         // Add theme observer for dynamic updates
         const updateTheme = () => {
-          const isDarkMode = document.documentElement.classList.contains('dark');
+          const newIsDarkMode = document.documentElement.classList.contains('dark');
           if (scene) {
-            scene.background = new THREE.Color(isDarkMode ? 0x1a1a1a : 0xe5e7eb);
+            scene.background = new THREE.Color(newIsDarkMode ? 0x1a1a1a : 0xe5e7eb);
           }
-          // Force shader recompilation for color change
-          if (shaderRef && shaderRef.uniforms) {
-            // Update shader material to recompile with new theme
-            m.needsUpdate = true;
+
+          // Recreate material with new theme colors
+          if (p && g) {
+            // Remove old material
+            p.material.dispose();
+
+            // Create new material with updated theme
+            const newMaterial = new THREE.PointsMaterial({
+              size: 0.08,
+              transparent: true,
+              depthTest: false,
+              blending: THREE.AdditiveBlending,
+              opacity: 0.12,
+              onBeforeCompile: shader => {
+                shader.uniforms.time = gu.time;
+                shader.uniforms.mouse = { value: new THREE.Vector2() };
+                shaderRef = shader;
+                shader.vertexShader = `
+                  uniform float time;
+                  uniform vec2 mouse;
+                  attribute float sizes;
+                  attribute vec4 shift;
+                  varying vec3 vColor;
+                  ${shader.vertexShader}
+                `.replace(
+                  `gl_PointSize = size;`,
+                  `gl_PointSize = size * sizes;`
+                ).replace(
+                  `#include <color_vertex>`,
+                  `#include <color_vertex>
+                    float d = length(abs(position) / vec3(40., 10., 40));
+                    d = clamp(d, 0., 1.);
+                    // Theme-aware colors: dark/blackish particles for light theme, light particles for dark theme
+                    ${newIsDarkMode ?
+                      'vColor = mix(vec3(180., 180., 180.), vec3(120., 120., 200.), d) / 255.;' :
+                      'vColor = mix(vec3(20., 20., 20.), vec3(60., 60., 60.), d) / 255.;'
+                    }
+                  `
+                ).replace(
+                  `#include <begin_vertex>`,
+                  `#include <begin_vertex>
+                    float t = time;
+                    float moveT = mod(shift.x + shift.z * t, PI2);
+                    float moveS = mod(shift.y + shift.z * t, PI2);
+                    transformed += vec3(cos(moveS) * sin(moveT), cos(moveT), sin(moveS) * sin(moveT)) * shift.w;
+
+                    // Simple cursor hover distortion effect
+                    vec2 mousePos = mouse * 15.0;
+                    float mouseDistance = length(position.xy - mousePos);
+                    float mouseInfluence = smoothstep(8.0, 0.0, mouseDistance);
+                    vec2 mouseDirection = normalize(position.xy - mousePos);
+
+                    // Particles move away from cursor position
+                    transformed.xy += mouseDirection * mouseInfluence * 5.0;
+                  `
+                );
+
+                shader.fragmentShader = `
+                  varying vec3 vColor;
+                  ${shader.fragmentShader}
+                `.replace(
+                  `vec4 diffuseColor = vec4( diffuse, opacity );`,
+                  `float d = length(gl_PointCoord.xy - 0.5);
+                   vec4 diffuseColor = vec4( vColor, smoothstep(0.5, 0.1, d) * 0.15 );`
+                );
+              }
+            });
+
+            // Update the points mesh with new material
+            p.material = newMaterial;
+            m = newMaterial; // Update reference
           }
         };
 
