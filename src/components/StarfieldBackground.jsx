@@ -294,7 +294,7 @@ const StarfieldBackground = () => {
         const updateTheme = () => {
           const isDarkMode = document.documentElement.classList.contains('dark');
           if (scene) {
-            scene.background = new THREE.Color(isDarkMode ? 0x1a1a1a : 0xfafafa);
+            scene.background = new THREE.Color(isDarkMode ? 0x1a1a1a : 0xe5e7eb);
           }
           // Force shader recompilation for color change
           if (shaderRef && shaderRef.uniforms) {
