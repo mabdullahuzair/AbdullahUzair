@@ -37,18 +37,18 @@ const Footer = () => {
               </p>
               <div className="flex space-x-4">
                 <a
-                  href="https://github.com/abdullah-uzair"
+                  href="https://github.com/mabdullahuzair"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-300 hover:bg-purple-600 hover:text-white transition-all duration-300 transform hover:scale-110"
+                  className="w-10 h-10 bg-gray-800 dark:bg-gray-800 bg-gray-200 rounded-lg flex items-center justify-center text-gray-300 dark:text-gray-300 text-gray-700 hover:bg-purple-600 hover:text-white transition-all duration-300 transform hover:scale-110"
                 >
                   <Github size={20} />
                 </a>
                 <a
-                  href="https://linkedin.com/in/abdullah-uzair"
+                  href="https://www.linkedin.com/in/abdullah-uzair-2a18b9278/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-300 hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-110"
+                  className="w-10 h-10 bg-gray-800 dark:bg-gray-800 bg-gray-200 rounded-lg flex items-center justify-center text-gray-300 dark:text-gray-300 text-gray-700 hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-110"
                 >
                   <Linkedin size={20} />
                 </a>
