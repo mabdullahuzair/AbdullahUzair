@@ -290,6 +290,34 @@ const StarfieldBackground = () => {
 
         console.log('Animation started');
 
+        // Add theme observer for dynamic updates
+        const updateTheme = () => {
+          const isDarkMode = document.documentElement.classList.contains('dark');
+          if (scene) {
+            scene.background = new THREE.Color(isDarkMode ? 0x1a1a1a : 0xfafafa);
+          }
+          // Force shader recompilation for color change
+          if (shaderRef && shaderRef.uniforms) {
+            // Update shader material to recompile with new theme
+            m.needsUpdate = true;
+          }
+        };
+
+        // Create a MutationObserver to watch for theme changes
+        themeObserver = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+              updateTheme();
+            }
+          });
+        });
+
+        // Start observing the document element for class changes
+        themeObserver.observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ['class']
+        });
+
         // Store cleanup function
         cleanupRef.current = () => {
           window.removeEventListener("resize", handleResize);
