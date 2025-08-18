@@ -116,15 +116,15 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800">
+        <div className="border-t border-gray-300 dark:border-gray-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="flex flex-col md:flex-row justify-between items-center">
-              <div className="flex items-center text-gray-400 text-sm mb-4 md:mb-0">
+              <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm mb-4 md:mb-0">
                 <span>© {currentYear} Muhammad Abdullah Uzair. Made with</span>
                 <Heart size={16} className="mx-2 text-red-500 animate-pulse" />
                 <span>and lots of coffee ☕</span>
               </div>
-              <div className="text-gray-400 text-sm">
+              <div className="text-gray-500 dark:text-gray-400 text-sm">
                 <span>Built with React.js & Tailwind CSS</span>
               </div>
             </div>
