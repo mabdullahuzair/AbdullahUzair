@@ -12,6 +12,9 @@ const StarfieldBackground = () => {
 
   useEffect(() => {
     let mounted = true;
+    let themeObserver = null;
+    let scene = null;
+    let shaderRef = null;
 
     const initThreeJS = async () => {
       try {
