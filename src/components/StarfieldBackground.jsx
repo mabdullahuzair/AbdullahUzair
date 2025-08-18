@@ -32,7 +32,7 @@ const StarfieldBackground = () => {
         scene = new THREE.Scene();
         // Check for dark mode and set appropriate background
         const isDarkMode = document.documentElement.classList.contains('dark');
-        scene.background = new THREE.Color(isDarkMode ? 0x1a1a1a : 0xfafafa);
+        scene.background = new THREE.Color(isDarkMode ? 0x1a1a1a : 0xe5e7eb);
         
         // Camera setup - exact match
         let camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
@@ -208,10 +208,10 @@ const StarfieldBackground = () => {
               `#include <color_vertex>
                 float d = length(abs(position) / vec3(40., 10., 40));
                 d = clamp(d, 0., 1.);
-                // Theme-aware colors: dark blue particles for light theme, light particles for dark theme
+                // Theme-aware colors: dark/blackish particles for light theme, light particles for dark theme
                 ${isDarkMode ?
                   'vColor = mix(vec3(180., 180., 180.), vec3(120., 120., 200.), d) / 255.;' :
-                  'vColor = mix(vec3(25., 25., 80.), vec3(40., 50., 120.), d) / 255.;'
+                  'vColor = mix(vec3(20., 20., 20.), vec3(60., 60., 60.), d) / 255.;'
                 }
               `
             ).replace(
