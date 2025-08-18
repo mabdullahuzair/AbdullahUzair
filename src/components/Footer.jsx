@@ -63,7 +63,7 @@ const Footer = () => {
 
             {/* Quick Links */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-white">Quick Links</h4>
+              <h4 className="text-lg font-semibold text-gray-800 dark:text-white">Quick Links</h4>
               <ul className="space-y-2">
                 {[
                   { name: 'About', href: '#about' },
@@ -81,7 +81,7 @@ const Footer = () => {
                           element.scrollIntoView({ behavior: 'smooth' });
                         }
                       }}
-                      className="text-gray-300 hover:text-purple-400 transition-colors duration-300 text-left"
+                      className="text-gray-600 dark:text-gray-300 hover:text-purple-400 transition-colors duration-300 text-left"
                     >
                       {link.name}
                     </button>
@@ -92,7 +92,7 @@ const Footer = () => {
 
             {/* Contact Info */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-white">Get In Touch</h4>
+              <h4 className="text-lg font-semibold text-gray-800 dark:text-white">Get In Touch</h4>
               <div className="space-y-3">
                 <div className="flex items-center text-gray-300">
                   <Mail size={16} className="mr-3 text-purple-400" />
