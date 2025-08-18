@@ -211,7 +211,7 @@ const StarfieldBackground = () => {
                 // Theme-aware colors: dark/blackish particles for light theme, light particles for dark theme
                 ${isDarkMode ?
                   'vColor = mix(vec3(180., 180., 180.), vec3(120., 120., 200.), d) / 255.;' :
-                  'vColor = mix(vec3(20., 20., 20.), vec3(60., 60., 60.), d) / 255.;'
+                  'vColor = mix(vec3(5., 5., 5.), vec3(30., 30., 30.), d) / 255.;'
                 }
               `
             ).replace(
@@ -331,7 +331,7 @@ const StarfieldBackground = () => {
                     // Theme-aware colors: dark/blackish particles for light theme, light particles for dark theme
                     ${newIsDarkMode ?
                       'vColor = mix(vec3(180., 180., 180.), vec3(120., 120., 200.), d) / 255.;' :
-                      'vColor = mix(vec3(20., 20., 20.), vec3(60., 60., 60.), d) / 255.;'
+                      'vColor = mix(vec3(5., 5., 5.), vec3(30., 30., 30.), d) / 255.;'
                     }
                   `
                 ).replace(
