@@ -143,7 +143,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen transition-colors duration-300 relative">
+    <div className="min-h-screen bg-gray-200 dark:bg-gray-900 transition-colors duration-300 relative">
       <StarfieldBackground />
       <CursorTrail />
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />

@@ -12,6 +12,9 @@ const StarfieldBackground = () => {
 
   useEffect(() => {
     let mounted = true;
+    let themeObserver = null;
+    let scene = null;
+    let shaderRef = null;
 
     const initThreeJS = async () => {
       try {
@@ -26,10 +29,10 @@ const StarfieldBackground = () => {
         mountRef.current.innerHTML = '';
 
         // Scene setup with grayish theme support
-        let scene = new THREE.Scene();
+        scene = new THREE.Scene();
         // Check for dark mode and set appropriate background
         const isDarkMode = document.documentElement.classList.contains('dark');
-        scene.background = new THREE.Color(isDarkMode ? 0x1a1a1a : 0xf8f8f8);
+        scene.background = new THREE.Color(isDarkMode ? 0x1a1a1a : 0xe5e7eb);
         
         // Camera setup - exact match
         let camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
@@ -177,16 +180,15 @@ const StarfieldBackground = () => {
         g.setAttribute("sizes", new THREE.Float32BufferAttribute(sizes, 1));
         g.setAttribute("shift", new THREE.Float32BufferAttribute(shift, 4));
 
-        // Store shader reference for uniform updates
-        let shaderRef = null;
+        // Shader reference already declared above
 
         // Create material with hover distortion and theme support
         let m = new THREE.PointsMaterial({
           size: 0.08, // Slightly thicker particles
           transparent: true,
           depthTest: false,
-          blending: THREE.AdditiveBlending,
-          opacity: 0.12, // Slightly more visible for interaction
+          blending: isDarkMode ? THREE.AdditiveBlending : THREE.NormalBlending,
+          opacity: isDarkMode ? 0.12 : 0.6, // Higher opacity for dark particles on light background
           onBeforeCompile: shader => {
             shader.uniforms.time = gu.time;
             shader.uniforms.mouse = { value: new THREE.Vector2() };
@@ -206,10 +208,10 @@ const StarfieldBackground = () => {
               `#include <color_vertex>
                 float d = length(abs(position) / vec3(40., 10., 40));
                 d = clamp(d, 0., 1.);
-                // Theme-aware colors: dark particles for light theme, light particles for dark theme
+                // Theme-aware colors: dark/blackish particles for light theme, light particles for dark theme
                 ${isDarkMode ?
                   'vColor = mix(vec3(180., 180., 180.), vec3(120., 120., 200.), d) / 255.;' :
-                  'vColor = mix(vec3(30., 30., 30.), vec3(60., 30., 90.), d) / 255.;'
+                  'vColor = mix(vec3(5., 5., 5.), vec3(30., 30., 30.), d) / 255.;'
                 }
               `
             ).replace(
@@ -237,7 +239,8 @@ const StarfieldBackground = () => {
             `.replace(
               `vec4 diffuseColor = vec4( diffuse, opacity );`,
               `float d = length(gl_PointCoord.xy - 0.5);
-               vec4 diffuseColor = vec4( vColor, smoothstep(0.5, 0.1, d) * 0.15 );`
+               float alpha = smoothstep(0.5, 0.1, d);
+               vec4 diffuseColor = vec4( vColor, alpha * ${isDarkMode ? '0.15' : '0.8'} );`
             );
           }
         });
@@ -288,6 +291,102 @@ const StarfieldBackground = () => {
 
         console.log('Animation started');
 
+        // Add theme observer for dynamic updates
+        const updateTheme = () => {
+          const newIsDarkMode = document.documentElement.classList.contains('dark');
+          if (scene) {
+            scene.background = new THREE.Color(newIsDarkMode ? 0x1a1a1a : 0xe5e7eb);
+          }
+
+          // Recreate material with new theme colors
+          if (p && g) {
+            // Remove old material
+            p.material.dispose();
+
+            // Create new material with updated theme
+            const newMaterial = new THREE.PointsMaterial({
+              size: 0.08,
+              transparent: true,
+              depthTest: false,
+              blending: newIsDarkMode ? THREE.AdditiveBlending : THREE.NormalBlending,
+              opacity: newIsDarkMode ? 0.12 : 0.6,
+              onBeforeCompile: shader => {
+                shader.uniforms.time = gu.time;
+                shader.uniforms.mouse = { value: new THREE.Vector2() };
+                shaderRef = shader;
+                shader.vertexShader = `
+                  uniform float time;
+                  uniform vec2 mouse;
+                  attribute float sizes;
+                  attribute vec4 shift;
+                  varying vec3 vColor;
+                  ${shader.vertexShader}
+                `.replace(
+                  `gl_PointSize = size;`,
+                  `gl_PointSize = size * sizes;`
+                ).replace(
+                  `#include <color_vertex>`,
+                  `#include <color_vertex>
+                    float d = length(abs(position) / vec3(40., 10., 40));
+                    d = clamp(d, 0., 1.);
+                    // Theme-aware colors: dark/blackish particles for light theme, light particles for dark theme
+                    ${newIsDarkMode ?
+                      'vColor = mix(vec3(180., 180., 180.), vec3(120., 120., 200.), d) / 255.;' :
+                      'vColor = mix(vec3(5., 5., 5.), vec3(30., 30., 30.), d) / 255.;'
+                    }
+                  `
+                ).replace(
+                  `#include <begin_vertex>`,
+                  `#include <begin_vertex>
+                    float t = time;
+                    float moveT = mod(shift.x + shift.z * t, PI2);
+                    float moveS = mod(shift.y + shift.z * t, PI2);
+                    transformed += vec3(cos(moveS) * sin(moveT), cos(moveT), sin(moveS) * sin(moveT)) * shift.w;
+
+                    // Simple cursor hover distortion effect
+                    vec2 mousePos = mouse * 15.0;
+                    float mouseDistance = length(position.xy - mousePos);
+                    float mouseInfluence = smoothstep(8.0, 0.0, mouseDistance);
+                    vec2 mouseDirection = normalize(position.xy - mousePos);
+
+                    // Particles move away from cursor position
+                    transformed.xy += mouseDirection * mouseInfluence * 5.0;
+                  `
+                );
+
+                shader.fragmentShader = `
+                  varying vec3 vColor;
+                  ${shader.fragmentShader}
+                `.replace(
+                  `vec4 diffuseColor = vec4( diffuse, opacity );`,
+                  `float d = length(gl_PointCoord.xy - 0.5);
+                   float alpha = smoothstep(0.5, 0.1, d);
+                   vec4 diffuseColor = vec4( vColor, alpha * ${newIsDarkMode ? '0.15' : '0.8'} );`
+                );
+              }
+            });
+
+            // Update the points mesh with new material
+            p.material = newMaterial;
+            m = newMaterial; // Update reference
+          }
+        };
+
+        // Create a MutationObserver to watch for theme changes
+        themeObserver = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+              updateTheme();
+            }
+          });
+        });
+
+        // Start observing the document element for class changes
+        themeObserver.observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ['class']
+        });
+
         // Store cleanup function
         cleanupRef.current = () => {
           window.removeEventListener("resize", handleResize);
@@ -300,6 +399,9 @@ const StarfieldBackground = () => {
           window.removeEventListener("scroll", handleScroll);
           if (mountRef.current) {
             mountRef.current.removeEventListener("mousemove", handleMouseHover);
+          }
+          if (themeObserver) {
+            themeObserver.disconnect();
           }
           renderer.setAnimationLoop(null);
 
